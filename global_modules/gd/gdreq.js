@@ -4,7 +4,7 @@ const GDCrypto = GDUtils.GDCrypto();
 const GDError = require("./gderror").GDError;
 const Connect = require("./dfconnection");
 const FileManager = require("./filemanager");
-const Base64 = require("./webtoolkit.base64");
+const Base64 = require("./webtoolkit/webtoolkit.base64");
 
 exports.GDRequest = function(){
     function GDRequest(body, secret, timeout){
