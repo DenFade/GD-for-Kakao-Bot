@@ -16,6 +16,9 @@ module.exports = {
         }
         return result.join("&");
     },
+    randomString: function(length){
+        //later
+    },
     Tuple3: function(){
         return Object.freeze(Array.from(arguments).splice(0, 3));
     },

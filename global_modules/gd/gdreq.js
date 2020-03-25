@@ -279,7 +279,7 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.rateDifficulty = function(){
-        
+        //later..
     }
 
     return GDRequest;
