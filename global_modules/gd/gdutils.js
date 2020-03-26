@@ -16,9 +16,6 @@ module.exports = {
         }
         return result.join("&");
     },
-    randomString: function(length){
-        //later
-    },
     Tuple3: function(){
         return Object.freeze(Array.from(arguments).splice(0, 3));
     },
@@ -88,6 +85,15 @@ module.exports = {
 
         GDCrypto.prototype.decodeLevelPass = function(){
             return this.decode(this.str, GDCrypto.levelpass);
+        }
+
+        GDCrypto.makeRs = function(len){
+            var charTable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return "_".repeat(len).replace(/_/g, (a,b) => charTable[Math.random()*charTable.length|0]);
+        }
+
+        GDCrypto.makeChk = function(args, key){
+            //later...
         }
 
         return GDCrypto;
