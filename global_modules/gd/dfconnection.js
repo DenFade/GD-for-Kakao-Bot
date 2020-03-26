@@ -21,7 +21,7 @@ module.exports = {
                 toText: toText
             });
         } finally {
-            callback(toText ? String(result.text()) : result, null);
+            callback(toText ? result.text() : result, null);
         }
     },
     POST: function(url, header, body, timeout, cookie, ignoreType, toText, callback){
@@ -35,7 +35,7 @@ module.exports = {
             if(ignoreType){
                result = result.ignoreContentType(true);
             }
-            result = result.post().text();
+            result = result.post();
         } catch(e) {
             callback(null, {
                 error: e,
@@ -48,6 +48,6 @@ module.exports = {
                 toText: toText
             });
         }
-        callback(result, null);
+        callback(toText ? result.text() : result, null);
     }
 }
