@@ -267,7 +267,7 @@ exports.GDRequest = function(){
         this.body.gjp= new GDCrypto(this.body.gjp).encodeAccPass();
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_GET_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_READ_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
                     FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
