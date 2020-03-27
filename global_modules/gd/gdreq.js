@@ -285,7 +285,7 @@ exports.GDRequest = function(){
         if(this.body.like === undefined) this.body.like = 1;
 
         var rs = GDCrypto.makeRs();
-        var args = [0, this.body.levelID, this.body.like, 1, rs, this.body.accountID, 0, 0]; //[special, item.id, like, typeid, rs, client.account_id, 0, 0]
+        var args = [0, this.body.levelID, this.body.like, 1, rs, this.body.accountID, 0, 0];
         var chk = GDCrypto.makeChk(args, GDCrypto.like_rate);
 
         this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
