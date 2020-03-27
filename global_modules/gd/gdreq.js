@@ -118,7 +118,7 @@ exports.GDRequest = function(){
     GDRequest.prototype.getTimelyLevel = function(){
         if(!this.body.type) throw new GDError("Type must be (string) \"DAILY\" or \"WEEKLY\"");
         this.body.levelID = this.body.type == "DAILY" ? -1 : -2;
-        delete this.body.type; //이거 필요없음
+        delete this.body.type; //이거 필요없음 응아니야
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,

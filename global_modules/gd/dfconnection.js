@@ -10,6 +10,7 @@ module.exports = {
                result = result.ignoreContentType(true);
             }
             result = result.get();
+            callback(toText ? result.text() : result, null);
         } catch(e) {
             callback(null, {
                 error: e,
@@ -20,8 +21,6 @@ module.exports = {
                 ignoreType: ignoreType,
                 toText: toText
             });
-        } finally {
-            callback(toText ? result.text() : result, null);
         }
     },
     POST: function(url, header, body, timeout, cookie, ignoreType, toText, callback){
@@ -36,6 +35,7 @@ module.exports = {
                result = result.ignoreContentType(true);
             }
             result = result.post();
+            callback(toText ? result.text() : result, null);
         } catch(e) {
             callback(null, {
                 error: e,
@@ -48,6 +48,5 @@ module.exports = {
                 toText: toText
             });
         }
-        callback(toText ? result.text() : result, null);
     }
 }

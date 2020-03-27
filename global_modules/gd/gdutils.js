@@ -21,11 +21,11 @@ module.exports = {
         return Object.freeze(Array.from(arguments).splice(0, 3));
     },
     URL: function(path){
-        return "http://www.boomlings.com/database" + path;
+        return "http://www.boomlings.com/database/" + path + ".php";
     },
     randomInt: function(n, m){
         return Math.floor(Math.random()*(m-n+1))+n;
-    },
+    },//fuck you bitch
     GDCrypto: function(){
         function GDCrypto(str){
             this.str = str;
