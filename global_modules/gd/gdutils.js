@@ -1,4 +1,5 @@
 const Base64 = require("./webtoolkit/webtoolkit.base64");
+const SHA1 = require("./webtoolkit/webtoolkit.sha1");
 
 module.exports = {
     convertTable: function(arr, regex){
@@ -92,8 +93,10 @@ module.exports = {
             return "_".repeat(len).replace(/_/g, (a,b) => charTable[Math.random()*charTable.length|0]);
         }
 
-        GDCrypto.makeChk = function(args, key){
-            //later...
+        GDCrypto.prototype.makeChk = function(args, key){
+            args = args.concat(key);
+            args = SHA1(args.join(''))
+            return this.encode(args, key);
         }
 
         return GDCrypto;
