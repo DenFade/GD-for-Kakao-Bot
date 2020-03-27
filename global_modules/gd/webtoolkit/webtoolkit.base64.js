@@ -141,4 +141,4 @@ var Base64 = {
 
 };
 
-module.exports = Base64;
+exports.Base64 = Base64;

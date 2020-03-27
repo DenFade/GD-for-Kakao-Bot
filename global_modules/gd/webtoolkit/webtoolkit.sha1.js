@@ -151,3 +151,5 @@ function SHA1 (msg) {
 
     return temp.toLowerCase();
 }
+
+exports.SHA1 = SHA1;

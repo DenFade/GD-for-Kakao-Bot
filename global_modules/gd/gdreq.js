@@ -4,7 +4,7 @@ const GDCrypto = GDUtils.GDCrypto();
 const GDError = require("./gderror").GDError;
 const Connect = require("./dfconnection");
 const FileManager = require("./filemanager");
-const Base64 = require("./webtoolkit/webtoolkit.base64");
+const Base64 = require("./webtoolkit/webtoolkit.base64").Base64;
 
 exports.GDRequest = function(){
     function GDRequest(body, secret, timeout){
@@ -278,19 +278,53 @@ exports.GDRequest = function(){
         return data;
     }
 
+    GDRequest.prototype.likeLevel = function(){
+        if(!this.body.gjp) throw new GDError("gjp must not be empty");
+        if(!this.body.accountID) throw new GDError("accountID must not be empty");
+        if(!this.body.levelID) throw new GDError("levelID must not be empty");
+        if(this.body.like === undefined) this.body.like = 1;
+
+        var rs = GDCrypto.makeRs();
+        var args = [0, this.body.levelID, this.body.like, 1, rs, this.body.accountID, 0, 0]; //[special, item.id, like, typeid, rs, client.account_id, 0, 0]
+        var chk = GDCrypto.makeChk(args, GDCrypto.like_rate);
+
+        this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
+        this.body.uuid = GDCrypto.makeUuid();
+        this.body.udid = GDCrypto.makeUdid();
+        this.body.rs = rs;
+        this.body.chk = chk;
+        this.body.itemID = this.body.levelID;
+        this.body.type = 1;
+        this.body.special = 0;
+        delete this.body.levelID;
+        var data;
+
+        Log.i(GDUtils.bodyParser(this.body));
+
+        Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+            (res, err) => {
+                if(err !== null){
+                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                } else {
+                    data = res == "-1" ? -1 : 1;
+                }
+            });
+        return data;
+    }
+
     GDRequest.prototype.rateDifficulty = function(){
         if(!this.body.gjp) throw new GDError("gjp must not be empty");
         if(!this.body.accountID) throw new GDError("accountID must not be empty");
         if(!this.body.levelID) throw new GDError("levelID must not be empty");
-        if(!this.body.stars || (this.body.stars < 1 || this.body.stars > 10 || Number.isSafeInteger(this.body.stars))) throw new GDError("stars must be 1 to 10 int");
+        if(!this.body.stars || (this.body.stars < 1 || this.body.stars > 10 || !Number.isSafeInteger(this.body.stars))) throw new GDError("stars must be 1 to 10 int");
 
         var rs = GDCrypto.makeRs();
-        var args = [this.body.levelID, this.body.stars, this.body.rs, this.body.accountID, 0, 0];
+        var args = [this.body.levelID, this.body.stars, rs, this.body.accountID, 0, 0];
         var chk = GDCrypto.makeChk(args, GDCrypto.like_rate);
 
         this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
-        this.body.uuid = "dflab" + GDUtils.randomInt(100000, 100000000);
-        this.body.udid = "dflab" + GDUtils.randomInt(100000, 100000000000);
+        this.body.uuid = GDCrypto.makeUuid();
+        this.body.udid = GDCrypto.makeUdid();
         this.body.rs = rs;
         this.body.chk = chk;
         var data;

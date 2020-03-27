@@ -1,7 +1,7 @@
-const Base64 = require("./webtoolkit/webtoolkit.base64");
-const SHA1 = require("./webtoolkit/webtoolkit.sha1");
+const Base64 = require("./webtoolkit/webtoolkit.base64").Base64;
+const SHA1 = require("./webtoolkit/webtoolkit.sha1").SHA1;
 
-module.exports = {
+GDUtils = {
     convertTable: function(arr, regex){
         newMap = {};
         arr = arr.split(regex);
@@ -92,6 +92,7 @@ module.exports = {
         }
 
         GDCrypto.makeRs = function(len){
+            if(len === undefined) len = 10;
             var charTable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return "_".repeat(len).replace(/_/g, (a,b) => charTable[Math.random()*charTable.length|0]);
         }
@@ -99,9 +100,19 @@ module.exports = {
         GDCrypto.makeChk = function(args, key){
             args = args.concat(key);
             args = SHA1(args.join(''))
-            return this.encode(args, key);
+            return this.prototype.encode(args, key);
+        }
+
+        GDCrypto.makeUdid = function(){
+            return "dflab" + GDUtils.randomInt(100000, 100000000000);
+        }
+
+        GDCrypto.makeUuid = function(){
+            return "dflab" + GDUtils.randomInt(100000, 100000000);
         }
 
         return GDCrypto;
     }
 };
+
+module.exports = GDUtils;
