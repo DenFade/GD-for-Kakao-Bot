@@ -25,7 +25,8 @@ exports.GDRequest = function(){
             player: "targetAccountID",
             accid: "accountID",
             accpass: "gjp",
-            username: "userName"
+            username: "userName",
+            songid: "songID"
         };
 
         return dict[t];
@@ -45,7 +46,6 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.searchGDLevel = function(solo){
-
         this.editParams(
             GDUtils.Tuple3("name", GDRequest.param("name"), v => encodeURI(GDUtils.emptyTo(v, ""))),
             GDUtils.Tuple3("page", "page", v => GDUtils.emptyTo(v, 0)),
@@ -59,8 +59,7 @@ exports.GDRequest = function(){
             GDUtils.Tuple3("epic", "epic", v => GDUtils.emptyTo(v, 0)),
             GDUtils.Tuple3("star", "star", v => GDUtils.emptyTo(v, 0)),
         );
-
-        if(this.body.gjp !== undefined){
+        if(this.body.accpass !== undefined){
             this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
         }
         var data;
@@ -91,7 +90,6 @@ exports.GDRequest = function(){
 
     GDRequest.prototype.findGDLevel = function(){
         if(!this.body.levelid) throw new GDError("levelid must not be empty");
-        
         this.editParams(
             GDUtils.Tuple3("levelid", GDRequest.param("levelid"), null)
         );
@@ -111,7 +109,6 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.searchGDUser = function(){
-
         this.editParams(
             GDUtils.Tuple3("name", GDRequest.param("name"), v => encodeURI(GDUtils.emptyTo(v, "")))
         );
@@ -136,7 +133,6 @@ exports.GDRequest = function(){
 
     GDRequest.prototype.findGDUser = function(){
         if(!this.body.player) throw new GDError("player must not be empty");
-
         this.editParams(
             GDUtils.Tuple3("player", GDRequest.param("player"), null)
         );
@@ -217,8 +213,7 @@ exports.GDRequest = function(){
             GDUtils.Tuple3("comment", "comment", v => Base64.encode(v)),
             GDUtils.Tuple3("username", GDRequest.param("username"), null),
             GDUtils.Tuple3("percent", "percent", v => GDUtils.emptyTo(v, 0))
-        )
-        
+        );
         var args = [this.body.userName, this.body.comment, this.body.levelID, this.body.percent, 0];
         var chk = GDCrypto.makeChk(args, GDCrypto.comment);
         this.addParams("chk", chk);
@@ -236,8 +231,11 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.levelRanking = function(){
-        if(!this.body.levelID) throw new GDError("LevelID must not be empty");
-        if(!this.body.type) this.body.type = 1; //TOP(1), WEEK(2) 
+        if(!this.body.levelid) throw new GDError("levelid must not be empty");
+        this.editParams(
+            GDUtils.Tuple3("type", "type", v => GDUtils.emptyTo(v, 1)), //TOP(1) WEEK(2)
+            GDUtils.Tuple3("levelid", GDRequest.param("levelid"), null)
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SCORE), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -255,7 +253,10 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.songInfo = function(){
-        if(!this.body.songID) throw new GDError("songID must not be empty");
+        if(!this.body.songid) throw new GDError("songid must not be empty");
+        this.editParams(
+            GDUtils.Tuple3("songid", GDRequest.param("songid"), null)
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_GET_SONG_INFO), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -272,8 +273,10 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.getLeaderboard = function(){
-        if(!this.body.type) this.body.type = 0;
-        if(!this.body.count) this.body.count = 100;
+        this.editParams(
+            GDUtils.Tuple3("type", "type", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("count", "count", v => GDUtils.emptyTo(v, 100))
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_USER_SCORE), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -297,7 +300,7 @@ exports.GDRequest = function(){
         if(!this.body.subject) throw new GDError("subject must not be empty");
         if(!this.body.body) throw new GDError("body must not be empty");
         
-        this.body.gjp= new GDCrypto(this.body.gjp).encodeAccPass();
+        this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
         this.body.subject = Base64.encode(this.body.subject);
         this.body.body = new GDCrypto(this.body.body).encodeMsgBody();
         var data;
