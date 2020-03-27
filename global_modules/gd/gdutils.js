@@ -23,6 +23,9 @@ module.exports = {
     URL: function(path){
         return "http://www.boomlings.com/database" + path;
     },
+    randomInt: function(n, m){
+        return Math.floor(Math.random()*(m-n+1))+n;
+    },
     GDCrypto: function(){
         function GDCrypto(str){
             this.str = str;
@@ -93,7 +96,7 @@ module.exports = {
             return "_".repeat(len).replace(/_/g, (a,b) => charTable[Math.random()*charTable.length|0]);
         }
 
-        GDCrypto.prototype.makeChk = function(args, key){
+        GDCrypto.makeChk = function(args, key){
             args = args.concat(key);
             args = SHA1(args.join(''))
             return this.encode(args, key);

@@ -264,7 +264,7 @@ exports.GDRequest = function(){
         if(!this.body.accountID) throw new GDError("accountID must not be empty");
         if(!this.body.messageID) throw new GDError("messageID must not be empty");
 
-        this.body.gjp= new GDCrypto(this.body.gjp).encodeAccPass();
+        this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_READ_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -279,7 +279,31 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.rateDifficulty = function(){
-        //later..
+        if(!this.body.gjp) throw new GDError("gjp must not be empty");
+        if(!this.body.accountID) throw new GDError("accountID must not be empty");
+        if(!this.body.levelID) throw new GDError("levelID must not be empty");
+        if(!this.body.stars || (this.body.stars < 1 || this.body.stars > 10 || Number.isSafeInteger(this.body.stars))) throw new GDError("stars must be 1 to 10 int");
+
+        var rs = GDCrypto.makeRs();
+        var args = [this.body.levelID, this.body.stars, this.body.rs, this.body.accountID, 0, 0];
+        var chk = GDCrypto.makeChk(args, GDCrypto.like_rate);
+
+        this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
+        this.body.uuid = "dflab" + GDUtils.randomInt(100000, 100000000);
+        this.body.udid = "dflab" + GDUtils.randomInt(100000, 100000000000);
+        this.body.rs = rs;
+        this.body.chk = chk;
+        var data;
+
+        Connect.POST(GDUtils.URL(Indexes.URL_RATE_LEVEL_STARS), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+            (res, err) => {
+                if(err !== null){
+                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                } else {
+                    data = res == "-1" ? -1 : 1;
+                }
+            });
+        return data;
     }
 
     return GDRequest;
