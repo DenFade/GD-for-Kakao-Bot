@@ -3,12 +3,12 @@ const SHA1 = require("./webtoolkit/webtoolkit.sha1");
 
 module.exports = {
     convertTable: function(arr, regex){
-       	newMap = {};
-	       arr = arr.split(regex);
-	       for(i=0; i<arr.length-1; i+=2){
-	          	newMap[""+arr[i]] = arr[i+1];
-       	}
-       	return newMap;
+        newMap = {};
+        arr = arr.split(regex);
+        for(i=0; i<arr.length-1; i+=2){
+            newMap[""+arr[i]] = arr[i+1];
+        }
+        return newMap;
     },
     bodyParser: function(body){
         var result = [];
@@ -41,17 +41,17 @@ module.exports = {
 
         GDCrypto.prototype.xorcipher = function(str, key){
             var key = new java.lang.String(key).getBytes();
-	        var strBytes = new java.lang.String(str).getBytes();
-	        var result = new Int8Array(strBytes.length);
-	
-	        for (i = 0; i < strBytes.length; i++){
-		        result[i] = strBytes[i] ^ key[i % key.length];
+            var strBytes = new java.lang.String(str).getBytes();
+            var result = new Int8Array(strBytes.length);
+        
+            for (i = 0; i < strBytes.length; i++){
+                result[i] = strBytes[i] ^ key[i % key.length];
             }
             var string = "";
-	        for(i=0; i<result.length; i++){
-		        string += String.fromCharCode(result[i]);
-	        }
-	        return string;
+            for(i=0; i<result.length; i++){
+                string += String.fromCharCode(result[i]);
+            }
+            return string;
         }
 
         GDCrypto.prototype.encode = function(str, key){
