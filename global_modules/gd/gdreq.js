@@ -17,20 +17,49 @@ exports.GDRequest = function(){
         this.body.secret = !secret ? "Wmfd2893gb7" : secret;
     }
 
-    GDRequest.prototype.searchGDLevel = function(solo){
-        if(!this.body.str) this.body.str = "";
-        if(!this.body.page) this.body.page = 0;
-        if(!this.body.type) this.body.type = Indexes.STRATEGY_REGULAR;
-        if(!this.body.uncompleted) this.body.uncompleted = 0;
-        if(!this.body.onlyCompleted) this.body.onlyCompleted = 0;
-        if(!this.body.featured) this.body.featured = 0;
-        if(!this.body.original) this.body.original = 0;
-        if(!this.body.twoPlayer) this.body.twoPlayer = 0;
-        if(!this.body.coins) this.body.coins = 0;
-        if(!this.body.epic) this.body.epic = 0;
-        if(!this.body.star) this.body.star = 0;
+    GDRequest.param = function(t){
 
-        this.body.str = encodeURI(this.body.str);
+        const dict = {
+            name: "str",
+            levelid: "levelID",
+            player: "targetAccountID",
+            accid: "accountID",
+            accpass: "gjp",
+            username: "userName"
+        };
+
+        return dict[t];
+    }
+
+    GDRequest.prototype.editParams = function(){
+        for(var args of Array.from(arguments)){
+            this.body[args[1]] = args[2] === null ? this.body[args[0]] : args[2](this.body[args[0]]);
+            if(args[0] != args[1]) delete this.body[args[0]];
+        }
+    }
+
+    GDRequest.prototype.addParams = function(){
+        for(var args of Array.from(arguments)){
+            this.body[args[0]] = args[1];
+        }
+    }
+
+    GDRequest.prototype.searchGDLevel = function(solo){
+
+        this.editParams(
+            GDUtils.Tuple3("name", GDRequest.param("name"), v => encodeURI(GDUtils.emptyTo(v, ""))),
+            GDUtils.Tuple3("page", "page", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("type", "type", v => GDUtils.emptyTo(v, Indexes.STRATEGY_REGULAR)),
+            GDUtils.Tuple3("uncompleted", "uncompleted", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("onlycompleted", "onlyCompleted", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("featured", "featured", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("original", "original", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("twoplayer", "twoPlayer", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("coin", "coins", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("epic", "epic", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("star", "star", v => GDUtils.emptyTo(v, 0)),
+        );
+
         if(this.body.gjp !== undefined){
             this.body.gjp = new GDCrypto(this.body.gjp).encodeAccPass();
         }
@@ -61,7 +90,11 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.findGDLevel = function(){
-        if(!this.body.levelID) throw new GDError("LevelID must not be empty");
+        if(!this.body.levelid) throw new GDError("levelid must not be empty");
+        
+        this.editParams(
+            GDUtils.Tuple3("levelid", GDRequest.param("levelid"), null)
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -78,7 +111,10 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.searchGDUser = function(){
-        if(!this.body.str) throw new GDError("str must not be empty");
+
+        this.editParams(
+            GDUtils.Tuple3("name", GDRequest.param("name"), v => encodeURI(GDUtils.emptyTo(v, "")))
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_USER_SEARCH), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -99,7 +135,11 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.findGDUser = function(){
-        if(!this.body.targetAccountID) throw new GDError("targetAccountID must not be empty");
+        if(!this.body.player) throw new GDError("player must not be empty");
+
+        this.editParams(
+            GDUtils.Tuple3("player", GDRequest.param("player"), null)
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_GET_USER_INFO), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -117,8 +157,9 @@ exports.GDRequest = function(){
 
     GDRequest.prototype.getTimelyLevel = function(){
         if(!this.body.type) throw new GDError("Type must be (string) \"DAILY\" or \"WEEKLY\"");
-        this.body.levelID = this.body.type == "DAILY" ? -1 : -2;
-        delete this.body.type; //이거 필요없음 응아니야
+        this.editParams(
+            GDUtils.Tuple3("type", GDRequest.param("levelid"), v => v == "DAILY" ? -1 : -2)
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
@@ -135,9 +176,12 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.getlevelComments = function(){
-        if(!this.body.levelID) throw new GDError("LevelID must not be empty");
-        if(!this.body.page) this.body.page = 0;
-        if(!this.body.top) this.body.top = 0;
+        if(!this.body.levelid) throw new GDError("levelid must not be empty");
+        this.editParams(
+            GDUtils.Tuple3("levelid", GDRequest.param("levelid"), null),
+            GDUtils.Tuple3("page", "page", v => GDUtils.emptyTo(v, 0)),
+            GDUtils.Tuple3("top", "top", v => GDUtils.emptyTo(v, 0))
+        );
         var data;
 
         Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_COMMENT), {}, this.body, this.timeout, {}, true, true,
@@ -154,6 +198,38 @@ exports.GDRequest = function(){
                             user: GDUtils.convertTable(v[1], "~")
                         }
                     });
+                }
+            });
+        return data;
+    }
+
+    GDRequest.prototype.postLevelComment = function(){
+        if(!this.body.accpass) throw new GDError("accpass must not be empty");
+        if(!this.body.accid) throw new GDError("accid must not be empty");
+        if(!this.body.levelid) throw new GDError("levelid must not be empty");
+        if(!this.body.comment) throw new GDError("comment must not be empty");
+        if(!this.body.username) throw new GDError("username must not be empty");
+        
+        this.editParams(
+            GDUtils.Tuple3("accpass", GDRequest.param("accpass"), v => new GDCrypto(v).encodeAccPass()),
+            GDUtils.Tuple3("accid", GDRequest.param("accid"), null),
+            GDUtils.Tuple3("levelid", GDRequest.param("levelid"), null),
+            GDUtils.Tuple3("comment", "comment", v => Base64.encode(v)),
+            GDUtils.Tuple3("username", GDRequest.param("username"), null),
+            GDUtils.Tuple3("percent", "percent", v => GDUtils.emptyTo(v, 0))
+        )
+        
+        var args = [this.body.userName, this.body.comment, this.body.levelID, this.body.percent, 0];
+        var chk = GDCrypto.makeChk(args, GDCrypto.comment);
+        this.addParams("chk", chk);
+        var data;
+
+        Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+            (res, err) => {
+                if(err !== null){
+                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                } else {
+                    data = res;
                 }
             });
         return data;
@@ -278,6 +354,14 @@ exports.GDRequest = function(){
         return data;
     }
 
+    GDRequest.prototype.getProfileComment = function(){
+        //later...
+    }
+
+    GDRequest.prototype.postProfileComment = function(){
+        //later...
+    }
+
     GDRequest.prototype.likeLevel = function(){
         if(!this.body.gjp) throw new GDError("gjp must not be empty");
         if(!this.body.accountID) throw new GDError("accountID must not be empty");
@@ -299,14 +383,12 @@ exports.GDRequest = function(){
         delete this.body.levelID;
         var data;
 
-        Log.i(GDUtils.bodyParser(this.body));
-
         Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
                     FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
                 } else {
-                    data = res == "-1" ? -1 : 1;
+                    data = res;
                 }
             });
         return data;
@@ -334,7 +416,7 @@ exports.GDRequest = function(){
                 if(err !== null){
                     FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
                 } else {
-                    data = res == "-1" ? -1 : 1;
+                    data = res;
                 }
             });
         return data;

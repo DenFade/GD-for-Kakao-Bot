@@ -25,7 +25,10 @@ GDUtils = {
     },
     randomInt: function(n, m){
         return Math.floor(Math.random()*(m-n+1))+n;
-    },//fuck you bitch
+    }, //fuck you bitch (by 승기 & Refox)
+    emptyTo: function(d, r){
+        return d === undefined ? r : d;
+    },
     GDCrypto: function(){
         function GDCrypto(str){
             this.str = str;
