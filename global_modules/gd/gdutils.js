@@ -17,6 +17,9 @@ GDUtils = {
         }
         return result.join("&");
     },
+    Tuple2: function(){
+        return Object.freeze(Array.from(arguments).splice(0, 2));
+    },
     Tuple3: function(){
         return Object.freeze(Array.from(arguments).splice(0, 3));
     },
