@@ -221,7 +221,7 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_UPLOAD_COMMENT), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
                     FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
@@ -372,7 +372,33 @@ exports.GDRequest = function(){
     }
 
     GDRequest.prototype.postProfileComment = function(){
-        //later...
+        if(!this.body.accpass) throw new GDError("accpass must not be empty");
+        if(!this.body.accid) throw new GDError("accid must not be empty");
+        if(!this.body.comment) throw new GDError("comment must not be empty");
+        if(!this.body.username) throw new GDError("username must not be empty");
+        this.editParams(
+            GDUtils.Tuple3("accpass", GDRequest.param("accpass"), v => new GDCrypto(v).encodeAccPass()),
+            GDUtils.Tuple3("accid", GDRequest.param("accid"), null),
+            GDUtils.Tuple3("comment", "comment", v => Base64.encode(v)),
+            GDUtils.Tuple3("username", GDRequest.param("username"), null)
+        );
+        var args = [this.body.userName, this.body.comment, 0, 0, 1];
+        var chk = GDCrypto.makeChk(args, GDCrypto.comment);
+        this.addParams(
+            GDUtils.Tuple2("chk", chk),
+            GDUtils.Tuple2("cType", 1)
+        );
+        var data;
+
+        Connect.POST(GDUtils.URL(Indexes.URL_UPLOAD_ACC_COMMENT), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+            (res, err) => {
+                if(err !== null){
+                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                } else {
+                    data = res;
+                }
+            });
+        return data;
     }
 
     GDRequest.prototype.likeLevel = function(){

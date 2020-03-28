@@ -4,7 +4,7 @@ Object.prototype.entries = function(obj) {
     resArray = new Array(i); // preallocate the Array
     while (i--) resArray[i] = [ownProps[i], obj[ownProps[i]]];
     return resArray;
-};
+}; //pushed
 
 /*
 
