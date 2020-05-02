@@ -32,6 +32,15 @@ GDUtils = {
     emptyTo: function(d, r){
         return d === undefined ? r : d;
     },
+    getBytes: function(str){
+        var bytes = [];
+        for(var i = 0; i < str.length; i++) {
+            var char = str.charCodeAt(i);
+            bytes.push(char >>> 8);
+            bytes.push(char & 0xFF);
+        }   
+        return bytes;
+    },
     GDCrypto: function(){
         function GDCrypto(str){
             this.str = str;
@@ -49,8 +58,8 @@ GDUtils = {
         GDCrypto.userscore = '85271';
 
         GDCrypto.prototype.xorcipher = function(str, key){
-            var key = new java.lang.String(key).getBytes();
-            var strBytes = new java.lang.String(str).getBytes();
+            var key = getBytes(""+key)
+            var strBytes = getBytes(str);
             var result = new Int8Array(strBytes.length);
         
             for (i = 0; i < strBytes.length; i++){
