@@ -42,4 +42,8 @@ function Connection(){
         }
         return this.callback(res, null);
     }
+
+    return Connection;
 }
+
+exports.Connection = Connection;
