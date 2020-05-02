@@ -30,7 +30,7 @@ GDUtils = {
         return Math.floor(Math.random()*(m-n+1))+n;
     }, //fuck you bitch (by 승기 & Refox)
     emptyTo: function(d, r){
-        return d === undefined ? r : d;
+        return d === null || d === undefined ? r : d;
     },
     getBytes: function(str){
         var bytes = [];
