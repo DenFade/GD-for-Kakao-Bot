@@ -27,8 +27,9 @@ module.exports = {
     LEVEL_IS_EPIC: 42,
     LEVEL_DEMON_DIFFICULTY: 43,
     LEVEL_OBJECT_COUNT: 45,
-    LEVEL_SECRET_STUFF_1: 46,  //@Unidentified
-    LEVEL_SECRET_STUFF_2: 47,  //@Unidentified
+    LEVEL_SECRET_STUFF_1: 46,
+    LEVEL_SECRET_STUFF_2: 47,
+    LEVEL_SECRET_STUFF_3: 48,
 
 /* PROFILE INDEX */
 
