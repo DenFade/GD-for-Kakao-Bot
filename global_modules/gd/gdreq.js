@@ -1,10 +1,10 @@
-const Indexes = require("./gdindex");
+const Indexes = require("./entities/gdindex");
 const GDUtils = require("./gdutils");
 const GDCrypto = GDUtils.GDCrypto();
 const GDError = require("./gderror").GDError;
-const Connect = require("./dfconnection").Connection();
-const FileManager = require("./filemanager");
+const Connect = require("../utils/dfconnection").Connection();
 const Base64 = require("./webtoolkit/webtoolkit.base64").Base64;
+const test = require('./')
 
 exports.GDRequest = function(){
     function GDRequest(){
@@ -54,16 +54,19 @@ exports.GDRequest = function(){
             body.gjp = this.pass;
             body.extra = 1;
         }
+
+        if(filter.noStar) body.noStar = 1;
+        if()
         
         return Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SEARCH), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
                     res = res.split("#");
-                    data = {
+                    return {
                         levels: res[0].split("|").map(v => GDUtils.convertTable(v, ":")),
                         creators: res[1].split("|").map(v => GDUtils.Tuple3.apply(null, v.split(":"))),
                         songs: res[2].split(":").map(v => v == "" ? null : GDUtils.convertTable(v, "~|~")),
@@ -73,24 +76,23 @@ exports.GDRequest = function(){
             });    
     }
 
-    GDRequest.prototype.findGDLevel = function(){
-        if(!this.body.levelid) throw new GDError("levelid must not be empty");
-        this.editParams(
-            GDUtils.Tuple3("levelid", GDRequest.param("levelid"), null)
-        );
-        var data;
+    GDRequest.prototype.findGDLevel = function(levelid){
+        if(levelid) throw new GDError("Empty level id");
 
-        Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        var body = {
+            levelID: levelid
+        };
+
+        return Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
-                    data = -1;
+                    return -1;
                 } else {
-                    data = GDUtils.convertTable(res, ":");
+                    return GDUtils.convertTable(res, ":");
                 }
             });
-        return data;
     }
 
     GDRequest.prototype.searchGDUser = function(){
@@ -99,10 +101,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_USER_SEARCH), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_USER_SEARCH), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -123,10 +125,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_GET_USER_INFO), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_GET_USER_INFO), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -143,10 +145,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -168,7 +170,7 @@ exports.GDRequest = function(){
         Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_COMMENT), {}, this.body, this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -205,10 +207,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_UPLOAD_COMMENT), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_UPLOAD_COMMENT), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     data = res;
                 }
@@ -224,10 +226,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SCORE), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SCORE), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -245,10 +247,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_GET_SONG_INFO), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_GET_SONG_INFO), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -265,10 +267,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_USER_SCORE), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_USER_SCORE), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else if(res == "-1"){
                     data = -1;
                 } else {
@@ -294,10 +296,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_SEND_PRIVATE_MESSAGE), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_SEND_PRIVATE_MESSAGE), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     data = res == "-1" ? -1 : 1;
                 }
@@ -317,10 +319,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_GET_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_GET_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     res = res.split("|");
                     data = res.map(v => GDUtils.convertTable(v, ":"));
@@ -340,10 +342,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_READ_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_READ_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     data = GDUtils.convertTable(res, ":");
                 }
@@ -374,10 +376,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_UPLOAD_ACC_COMMENT), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_UPLOAD_ACC_COMMENT), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     data = res;
                 }
@@ -410,10 +412,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     data = res;
                 }
@@ -445,10 +447,10 @@ exports.GDRequest = function(){
         );
         var data;
 
-        Connect.POST(GDUtils.URL(Indexes.URL_RATE_LEVEL_STARS), {}, GDUtils.bodyParser(this.body), this.timeout, {}, true, true,
+        Connect.POST(GDUtils.URL(Indexes.URL_RATE_LEVEL_STARS), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
                 if(err !== null){
-                    FileManager.concatJSON("/sdcard/GDBot/errors/LOGS", err);
+                    //handling error
                 } else {
                     data = res;
                 }
