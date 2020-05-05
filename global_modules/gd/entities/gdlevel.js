@@ -1,4 +1,4 @@
-function GDLevel(id, name, desc, data, version, creatorid, difficulty, downloads, audio, gameVer, likes, length, isDemon, star, featuredScore, isAuto, pass, uploadedTS, lastUpdatedTS, original, songId, coinCount, coinVerified, requestedStars, ldm, isEpic, demonDifficulty, objectCount, secret1, secret2, secret3){
+function GDLevel(id, name, desc, data, version, creatorid, creatoraccid, creatorname, difficulty, downloads, audio, gameVer, likes, length, isDemon, star, featuredScore, isAuto, pass, uploadedTS, lastUpdatedTS, original, coinCount, coinVerified, requestedStars, ldm, isEpic, objectCount, secret1, secret2, secret3){
 
     /*
     @param id : the level of id
@@ -7,6 +7,8 @@ function GDLevel(id, name, desc, data, version, creatorid, difficulty, downloads
     @param data : the level of ziped string form
     @param version : the level of version
     @param creatorid : the level of creator's player id
+    @param creatoraccid : the level of creator's account id
+    @param creatorname : the level of creator's name
     @param difficulty : the level of difficulty
     @param downloads : the level of download count
     @param audio : the level of gd song(0 ~ 20)
@@ -21,13 +23,11 @@ function GDLevel(id, name, desc, data, version, creatorid, difficulty, downloads
     @param uploadedTS : the level of uploaded timestamp
     @param lastUpdatedTS : the level of last updated timestamp
     @param original : the level of original ver level id
-    @param songId : the level of ng song
     @param coinCount : the level of coin count
     @param coinVerified : coin verified or not
     @param requestedStars : the level of requested star
     @param ldm : ldm exist of not
     @param isEpic : epic level or not
-    @param demonDifficulty : the level of demon difficulty
     @param objectCount : the level of object count
     @param secret1 : idk ???
     @param secret2 : idk ???
@@ -40,6 +40,8 @@ function GDLevel(id, name, desc, data, version, creatorid, difficulty, downloads
     this.levelData = data;
     this.levelVersion = version;
     this.levelCreatorID = creatorid;
+    this.levelCreatorAccountID = creatoraccid;
+    this.levelCreatorName = creatorname;
     this.levelDifficulty = difficulty;
     this.levelDownloads = downloads;
     this.levelAudioTrack = audio;
@@ -54,13 +56,11 @@ function GDLevel(id, name, desc, data, version, creatorid, difficulty, downloads
     this.levelUploaded = uploadedTS;
     this.levelLastUpdated = lastUpdatedTS;
     this.levelOriginal = original;
-    this.levelSong = songId;
     this.levelCoinCount = coinCount;
     this.levelCoinVerified = coinVerified;
     this.levelRequstedStars = requestedStars;
     this.levelHasLdm = ldm;
     this.levelIsEpic = isEpic;
-    this.levelDemonDifficulty = demonDifficulty;
     this.levelObjectCount = objectCount;
     this.levelSecret1 = secret1;
     this.levelSecret2 = secret2;

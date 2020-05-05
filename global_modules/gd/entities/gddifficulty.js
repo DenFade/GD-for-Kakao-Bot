@@ -13,8 +13,8 @@ const GDDifficulty = {
     EXTREME_DEMON: 11,
     getAbsoluteDifficulty: function(levelDiff, demonDiff, isAuto, isDemon){
         var d;
-        if(isAuto) return GDDifficulty.AUTO;
-        else if(isDemon){
+        if(isAuto == "1") return GDDifficulty.AUTO;
+        else if(isDemon == "1"){
             switch(demonDiff){
                 case "3":
                     d = GDDifficulty.EASY_DEMON; break;
@@ -47,3 +47,5 @@ const GDDifficulty = {
         }
     }
 }
+
+exports.GDDifficulty = GDDifficulty;

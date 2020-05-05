@@ -1,10 +1,19 @@
-const Indexes = require("./entities/gdindex");
-const GDUtils = require("./gdutils");
-const GDCrypto = GDUtils.GDCrypto();
+//main
 const GDError = require("./gderror").GDError;
-const Connect = require("../utils/dfconnection").Connection();
+
+//entities
+const GDDifficulty = require("./entities/gddifficulty").GDDifficulty;
+const GDLevel = require("./entities/gdlevel").GDLevel;
+const GDSong = require("./entities/gdsong").GDSong;
+
+//utils
 const Base64 = require("./webtoolkit/webtoolkit.base64").Base64;
-const test = require('./')
+const Connect = require("./utils/dfconnection").Connection();
+const GDCrypto = GDUtils.GDCrypto();
+const GDUtils = require("./gdutils");
+const Indexes = require("./entities/gdindex");
+
+
 
 exports.GDRequest = function(){
     function GDRequest(){
@@ -56,7 +65,12 @@ exports.GDRequest = function(){
         }
 
         if(filter.noStar) body.noStar = 1;
-        if()
+        if(filter.song !== undefined){
+            body.song = filter.song;
+            body.customSong = filter.isCustom ? "1" : "0";
+        }
+        if((body.onlyCompleted || body.uncompleted) && filter.completedList) body.completedLevels = "(" + filter.completedList.join() + ")";
+        if(filter.followed) body.followed = filter.followed.join();
         
         return Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SEARCH), {}, GDUtils.bodyParser(body), this.timeout, {}, true, true,
             (res, err) => {
@@ -65,12 +79,71 @@ exports.GDRequest = function(){
                 } else if(res == "-1"){
                     data = -1;
                 } else {
+                    
                     res = res.split("#");
-                    return {
-                        levels: res[0].split("|").map(v => GDUtils.convertTable(v, ":")),
-                        creators: res[1].split("|").map(v => GDUtils.Tuple3.apply(null, v.split(":"))),
-                        songs: res[2].split(":").map(v => v == "" ? null : GDUtils.convertTable(v, "~|~")),
-                        page: GDUtils.Tuple3.apply(res[3].split(":"))
+                    var levels = res[0].split("|").map(v => GDUtils.convertTable(v, ":"));
+                    var creators = res[1].split("|").map(v => GDUtils.Tuple3.apply(null, v.split(":")));
+                    var songs = res[2].split(":").map(v => v == "" ? null : GDUtils.convertTable(v, "~|~"));
+                    var page = GDUtils.Tuple3.apply(res[3].split(":"));
+                    for(i in levels){
+                        let lv = levels[i];
+                        let cid = GDUtils.emptyTo(lv[Indexes.LEVEL_CREATOR_ID], "0");
+                        let diff = GDDifficulty.getAbsoluteDifficulty(
+                                    GDUtils.emptyTo(lv[Indexes.LEVEL_DIFFICULTY], "0"),
+                                    GDUtils.emptyTo(lv[Indexes.LEVEL_DEMON_DIFFICULTY], "0"),
+                                    GDUtils.emptyTo(lv[Indexes.LEVEL_IS_AUTO], "0"),
+                                    GDUtils.emptyTo(lv[Indexes.LEVEL_IS_DEMON], "0")
+                                );
+                        levels[i] = new GDLevel(
+                                lv[Indexes.LEVEL_ID],
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_NAME], "-"),
+                                Base64.decode(GDUtils.emptyTo(lv[Indexes.LEVEL_DESCRIPTION], "")),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_DATA]),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_VERSION], "0"),
+                                cid,
+                                GDUtils.emptyTo(creators.find(v => v[0] == cid)[2], ""),
+                                GDUtils.emptyTo(creators.find(v => v[0] == cid)[1], "-"),
+                                diff,
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_DOWNLOADS], "0"),
+                                lv[Indexes.LEVEL_SONG_ID] == "0" ? GDSong.basicSongs[lv[Indexes.LEVEL_AUDIO_TRACK]]
+                                    : (function(){
+                                        let s = songs.find(v => v[1] == lv[Indexes.SONG_ID]);
+                                        return !s ? null : new GDSong(
+                                            GDUtils.emptyTo(s[Indexes.SONG_AUTHOR], ""),
+                                            GDUtils.emptyTo(s[Indexes.SONG_ID], ""),
+                                            GDUtils.emptyTo(s[Indexes.SONG_TITLE], "-"),
+                                            true,
+                                            GDUtils.emptyTo(s[Indexes.SONG_SIZE], "??MB"),
+                                            GDUtils.emptyTo(s[Indexes.SONG_URL], ""),
+                                            GDUtils.emptyTo(s[Indexes.SONG_SECRET_URL], "")
+                                        );
+                                    }).bind(this)(),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_GAME_VERSION], ""),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_LIKES], ""),
+                                ["TINY", "SHORT", "MEDIUM", "LONG", "XL"][Number(lv[Indexes.le])],
+                                !!GDUtils.emptyTo(lv[Indexes.LEVEL_IS_DEMON], false),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_STARS], ""),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_FEATURED_SCORE], ""),
+                                !!GDUtils.emptyTo(lv[Indexes.LEVEL_IS_AUTO], false),
+                                (function checkLevelPassStatus(){
+                                    let p = lv[Indexes.LEVEL_PASS];
+                                    if(!p) return "Not Copyable";
+                                    else if(p.startsWith("Aw==")) return "Free to Copy";
+                                    else return new GDCrypto(p).decodeLevelPass().substring(1) || "Not Copyable";
+                                }).bind(this)(),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_UPLOADED_TIMESTAMP], "NA"),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_LAST_UPDATED_TIMESTAMP], "NA"),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_ORIGINAL], ""),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_COIN_COUNT], "0"),
+                                !!GDUtils.emptyTo(lv[Indexes.LEVEL_COIN_VERIFIED], false),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_REQUESTED_STARS], ""),
+                                !!GDUtils.emptyTo(lv[Indexes.LEVEL_LDM], false),
+                                !!GDUtils.emptyTo(lv[Indexes.LEVEL_IS_EPIC], false),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_OBJECT_COUNT], "???"),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_1], ""),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_2], ""),
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_3], "")
+                            );
                     }
                 }
             });    
