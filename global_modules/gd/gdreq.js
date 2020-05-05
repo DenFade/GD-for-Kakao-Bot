@@ -120,14 +120,14 @@ exports.GDRequest = function(){
                                     }).bind(this)(),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_GAME_VERSION], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_LIKES], ""),
-                                ["TINY", "SHORT", "MEDIUM", "LONG", "XL"][Number(lv[Indexes.le])],
+                                ["TINY", "SHORT", "MEDIUM", "LONG", "XL"][Number(lv[Indexes.LEVEL_LENGTH])],
                                 !!GDUtils.emptyTo(lv[Indexes.LEVEL_IS_DEMON], false),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_STARS], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_FEATURED_SCORE], ""),
                                 !!GDUtils.emptyTo(lv[Indexes.LEVEL_IS_AUTO], false),
                                 (function checkLevelPassStatus(){
                                     let p = lv[Indexes.LEVEL_PASS];
-                                    if(!p) return "Not Copyable";
+                                    if(!p) return "";
                                     else if(p.startsWith("Aw==")) return "Free to Copy";
                                     else return new GDCrypto(p).decodeLevelPass().substring(1) || "Not Copyable";
                                 }).bind(this)(),
