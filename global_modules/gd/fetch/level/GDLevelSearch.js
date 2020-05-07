@@ -1,3 +1,19 @@
+//entities
+const GDDifficulty = require("./entities/Difficulty").GDDifficulty;
+const GDLength = require("./entities/Length").GDLength;
+const GDLevel = require("./entities/Level").GDLevel;
+const GDSong = require("./entities/Song").GDSong;
+
+//error
+const GDError = require("./error/gderror").GDError;
+
+//utils
+const Base64 = require("./webtoolkit/webtoolkit.base64").Base64;
+const Connect = require("./fetch/Send").Connection();
+const GDCrypto = GDUtils.GDCrypto();
+const GDUtils = require("./gdutils");
+const Indexes = require("./entities/Index");
+
 function levelsearch(r, name, page, filter, field){
 
     /*
@@ -87,7 +103,7 @@ function levelsearch(r, name, page, filter, field){
                                     }).bind(this)(),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_GAME_VERSION], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_LIKES], ""),
-                                ["TINY", "SHORT", "MEDIUM", "LONG", "XL"][Number(lv[Indexes.LEVEL_LENGTH])],
+                                Length.getAbsoluteLength(Number(lv[Indexes.LEVEL_LENGTH])),
                                 !!GDUtils.emptyTo(lv[Indexes.LEVEL_IS_DEMON], false),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_STARS], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_FEATURED_SCORE], ""),
