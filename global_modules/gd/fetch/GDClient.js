@@ -6,9 +6,9 @@ const searchLevel = require("./level/GDSearchLevel").searchlevel;
 const getLevel = require("./level/GDGetLevel").getlevel;
 
 function GDClient(){
-    this.body.gdw = 4;
-    this.body.gameVersion = 21;
-    this.body.binaryVersion = 35;
+    this.gdw = 4;
+    this.gameVersion = 21;
+    this.binaryVersion = 35;
     this.timeout = 8000;
 }
 

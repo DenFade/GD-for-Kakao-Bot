@@ -7,15 +7,15 @@ function GDSong(author, id, title, isNGSong, size, downloadLink, secretLink){
     @param isNGSong : newgrounds bgm or not
     @param size : the song of size
     @param downloadLink : the song of download link
-    @parma secretLink : idk ???
+    @param secretLink : idk ???
     */
 
     this.author = author;
     this.id = id;
     this.title = title;
     this.size = size;
-    this.listenLink = id == null ? "" : "https://www.newgrounds.com/audio/listen/" + id;
-    this.downloadLink = !isNGSong ? "http://audio.ngfiles.com/" + id.substring(0, 3) + "000/" + id + "_" + title.replace(/ /gi, "_") : downloadLink;
+    this.listenLink = !isNGSong ? "" : "https://www.newgrounds.com/audio/listen/" + id;
+    this.downloadLink = !isNGSong ? "" : decodeURI(downloadLink);
     this.secretLink = !secretLink ? "" : secretLink;
 }
 
