@@ -24,7 +24,7 @@ function levelsearch(r, name, page, filter, field){
     @param field : REGULAR, MOST LIKED, etc..
     */
 
-    if(name == undefined) throw new TypeError("Empty level name");
+    if(name == undefined) throw new GDError("Empty level name");
         filter = GDUtils.emptyTo(filter, {});
 
         var body = {
