@@ -22,6 +22,8 @@ function levelsearch(r, name, page, filter, field){
     @param page : search page
     @param filter : search filter
     @param field : REGULAR, MOST LIKED, etc..
+    
+    @return (Paginator) : list of levels
     */
 
     if(name == undefined) throw new GDError("Empty level name");
