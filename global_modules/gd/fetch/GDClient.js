@@ -3,6 +3,7 @@ const GDError = require("../error/gderror").GDError;
 
 //fetch
 const searchLevel = require("./level/GDSearchLevel").searchlevel;
+const getLevel = require("./level/GDGetLevel").getlevel;
 
 function GDClient(){
     this.body.gdw = 4;
@@ -61,6 +62,8 @@ GDClient.prototype.getLevel = function(id){
 
     @returns {Connect (GDLevel)} - the level
     */
+
+    return getLevel(this, id);
 }
 
 exports.GDClient = GDClient;
