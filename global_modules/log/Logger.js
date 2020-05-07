@@ -2,7 +2,7 @@ function Logger(dir, name){
     this.name = name;
     this.path = "/storage/emulated/0/" + dir + "/global_modules/log/logs/" + name + ".json";
 
-    if(!new java.io.File(path).exists()) FileStream.write(path, JSON.stringify({
+    if(!new java.io.File(this.path).exists()) FileStream.write(this.path, JSON.stringify({
         dir: dir,
         name: name,
         log: []
@@ -13,8 +13,8 @@ Logger.build = function(dir, name){
     return new Logger(dir, name);
 }
 
-Logger.SUCCESS = "[SUCCESS!]";
-Logger.ERROR = "[ERROR!]";
+Logger.SUCCESS = "[SUCCESS !]";
+Logger.ERROR = "[ERROR !]";
 
 Logger.prototype.write = function(status, text, implements){
     let f = JSON.parse(FileStream.read(this.path));
@@ -24,7 +24,7 @@ Logger.prototype.write = function(status, text, implements){
         text: text,
         implements: implements === undefined ? null : implements
     })
-    FileStream.write(path, JSON.stringify(f, null, 4));
+    FileStream.write(this.path, JSON.stringify(f, null, 4));
 }
 
 Logger.prototype.lookUp = function(filter){

@@ -6,6 +6,7 @@ const GDDifficulty = require("../../entities/Difficulty").GDDifficulty;
 const GDLength = require("../../entities/Length").GDLength;
 const GDLevel = require("../../entities/Level").GDLevel;
 const GDSong = require("../../entities/Song").GDSong;
+const Indexes = require("../../entities/Index");
 
 //error
 const GDError = require("../../error/gderror").GDError;
@@ -18,7 +19,7 @@ const dir = require("../../../log/logs/setting").dir;
 const Base64 = require("../../webtoolkit/webtoolkit.base64").Base64;
 const GDUtils = require("../../utils/gdutils");
 const GDCrypto = GDUtils.GDCrypto();
-const Indexes = require("../../entities/Index");
+const Paginator = require("../../utils/Paginator").Paginator;
 
 function searchlevel(r, name, page, filter, field){
 
@@ -53,11 +54,11 @@ function searchlevel(r, name, page, filter, field){
     if((body.onlyCompleted || body.uncompleted) && filter.completedList) body.completedLevels = "(" + filter.completedList.join() + ")";
     if(filter.followed) body.followed = filter.followed.join();
         
-    return Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SEARCH), {}, GDUtils.bodyParser(body), r.timeout, {}, true, true,
+    return Connect.POST(GDUtils.URL(Indexes.URL_LEVEL_SEARCH), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
             (res, err) => {
                 let logger = Logger.build(dir, "gdlogs");
                 if(err !== null){
-                    logger.write(Logger.ERROR, "An error has occured -> from 'GDSearchLevel.js'", e);
+                    logger.write(Logger.ERROR, "An error has occured -> from 'GDSearchLevel.js'", err);
                 } else if(res == "-1"){
                     logger.write(Logger.ERROR, "Received Code -1");
                     return -1;

@@ -6,15 +6,20 @@ const GDDifficulty = require("../../entities/Difficulty").GDDifficulty;
 const GDLength = require("../../entities/Length").GDLength;
 const GDLevel = require("../../entities/Level").GDLevel;
 const GDSong = require("../../entities/Song").GDSong;
+const Indexes = require("../../entities/Index");
 
 //error
 const GDError = require("../../error/gderror").GDError;
+
+//logger
+const Logger = require("../../../log/Logger").Logger;
+const dir = require("../../../log/logs/setting").dir;
 
 //utils
 const Base64 = require("../../webtoolkit/webtoolkit.base64").Base64;
 const GDUtils = require("../../utils/gdutils");
 const GDCrypto = GDUtils.GDCrypto();
-const Indexes = require("../../entities/Index");
+
 
 function getlevel(r, id){
 
@@ -24,11 +29,11 @@ function getlevel(r, id){
         levelID: id
     };
 
-    return Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(body), r.timeout, {}, true, true,
+    return Connect.POST(GDUtils.URL(Indexes.URL_DOWNLOAD_LEVEL), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
             (res, err) => {
                 let logger = Logger.build(dir, "gdlogs");
                 if(err !== null){
-                    logger.write(Logger.ERROR, "An error has occured -> from 'GDGetLevel.js'", e);
+                    logger.write(Logger.ERROR, "An error has occured -> from 'GDGetLevel.js'", err);
                     return null;
                 } else if(res == "-1"){
                     logger.write(Logger.ERROR, "Received Code -1");
@@ -51,8 +56,8 @@ function getlevel(r, id){
                         GDUtils.emptyTo(lv[Indexes.LEVEL_DATA]),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_VERSION], "0"),
                         cid,
-                        GDUtils.emptyTo(creators.find(v => v[0] == cid)[2], ""),
-                        GDUtils.emptyTo(creators.find(v => v[0] == cid)[1], "-"),
+                        "",
+                        "",
                         diff,
                         GDUtils.emptyTo(lv[Indexes.LEVEL_DOWNLOADS], "0"),
                         lv[Indexes.LEVEL_SONG_ID] == "0" ? GDSong.basicSongs[lv[Indexes.LEVEL_AUDIO_TRACK]]

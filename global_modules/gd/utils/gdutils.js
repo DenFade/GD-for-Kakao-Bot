@@ -1,5 +1,5 @@
-const Base64 = require("./webtoolkit/webtoolkit.base64").Base64;
-const SHA1 = require("./webtoolkit/webtoolkit.sha1").SHA1;
+const Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
+const SHA1 = require("../webtoolkit/webtoolkit.sha1").SHA1;
 
 GDUtils = {
     convertTable: function(arr, regex){
@@ -10,7 +10,11 @@ GDUtils = {
         }
         return newMap;
     },
-    bodyParser: function(body){
+    bodyParser: function(r, body){
+        body.gdw = r.gdw;
+        body.binaryVersion = r.binaryVersion;
+        body.gameVersion = r.gameVersion;
+        body.secret = r.secret;
         var result = [];
         for(i in body){
             result.push(i+"="+body[i]);
@@ -58,8 +62,8 @@ GDUtils = {
         GDCrypto.userscore = '85271';
 
         GDCrypto.prototype.xorcipher = function(str, key){
-            var key = getBytes(""+key)
-            var strBytes = getBytes(str);
+            var key = GDUtils.getBytes(""+key)
+            var strBytes = GDUtils.getBytes(str);
             var result = new Int8Array(strBytes.length);
         
             for (i = 0; i < strBytes.length; i++){

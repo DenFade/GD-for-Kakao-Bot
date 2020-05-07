@@ -5,10 +5,15 @@ const GDError = require("../error/gderror").GDError;
 const searchLevel = require("./level/GDSearchLevel").searchlevel;
 const getLevel = require("./level/GDGetLevel").getlevel;
 
+//utils
+const GDUtils = require("../utils/gdutils");
+const GDCrypto = GDUtils.GDCrypto();
+
 function GDClient(){
     this.gdw = 4;
     this.gameVersion = 21;
     this.binaryVersion = 35;
+    this.secret = "Wmfd2893gb7";
     this.timeout = 8000;
 }
 
@@ -16,10 +21,17 @@ GDClient.build = function(){
     return new GDClient();
 }
 
-GDClient.prototype.timeout = function(t){
+GDClient.prototype.setTimeout = function(t){
     if(!t && typeof t !== "number") throw new GDError("Timeout must be integer");
 
     this.timeout = t;
+    return this;
+}
+
+GDClient.prototype.setSecret = function(secret){
+    if(!secret) throw new GDError("Secret must not be empty");
+
+    this.secret = secret;
 }
 
 GDClient.prototype.login = function(accid, nick, pass){

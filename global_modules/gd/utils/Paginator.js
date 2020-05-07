@@ -15,6 +15,7 @@ function Paginator(items, currentPage, maxItemsPerPage, totalItems, params, page
     this.totalItems = totalItems;
     this.imple = params;
     this.totalPages = Math.floor(totalItems / maxItemsPerPage);
+    this.pageMoveAction = pageMoveAction;
 }
 
 Paginator.prototype.hasNext = function(){
@@ -40,3 +41,5 @@ Paginator.prototype.moveSpecificPage = function(p){
     params[2] = p;
     return this.pageMoveAction.apply(null, params);
 }
+
+exports.Paginator = Paginator;

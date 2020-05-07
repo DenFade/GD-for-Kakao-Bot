@@ -2,6 +2,8 @@ function Connection(){
     function Connection(url, header, body, timeout, cookie, method, ignoreType, toText, callback){
         this.url = url;
         this.header = header;
+        this.body = body;
+        this.timeout = timeout;
         this.cookie = cookie;
         this.ignoreType = ignoreType;
         this.toText = toText;
@@ -35,12 +37,12 @@ function Connection(){
     Connection.prototype.block = function(){
         var res;
         try{
-            res = this.result.execute();
+            res = this.result.execute().body();
+            return this.callback(this.toText ? res.toString() : res, null);
         } catch(e){
             this.callback(null, e);
             return;
         }
-        return this.callback(res, null);
     }
 
     return Connection;
