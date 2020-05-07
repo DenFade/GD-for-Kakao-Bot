@@ -1,37 +1,41 @@
+//fetch
+const GDClient = require("../fetch/GDClient").GDClient;
+const getLevel = require("../fetch/level/GDGetLevel").getlevel;
+
 function GDLevel(id, name, desc, data, version, creatorid, creatoraccid, creatorname, difficulty, downloads, audio, gameVer, likes, length, isDemon, star, featuredScore, isAuto, pass, uploadedTS, lastUpdatedTS, original, coinCount, coinVerified, requestedStars, ldm, isEpic, objectCount, secret1, secret2, secret3){
 
     /*
-    @param id : the level of id
-    @param name : the level of name
-    @param desc : the level of description
-    @param data : the level of ziped string form
-    @param version : the level of version
-    @param creatorid : the level of creator's player id
-    @param creatoraccid : the level of creator's account id
-    @param creatorname : the level of creator's name
-    @param difficulty : the level of difficulty
-    @param downloads : the level of download count
-    @param audio : the level of gd song(0 ~ 20)
-    @param gameVer : the level of Geometry Dash Version
-    @param likes : the level of like count
-    @param length : the level of length
-    @param isDemon : demon or not
-    @param star : the level of rated star
-    @param featuredScore : the level of featured score
-    @param isAuto : auto or not
-    @param pass : the level of copy pass
-    @param uploadedTS : the level of uploaded timestamp
-    @param lastUpdatedTS : the level of last updated timestamp
-    @param original : the level of original ver level id
-    @param coinCount : the level of coin count
-    @param coinVerified : coin verified or not
-    @param requestedStars : the level of requested star
-    @param ldm : ldm exist of not
-    @param isEpic : epic level or not
-    @param objectCount : the level of object count
-    @param secret1 : idk ???
-    @param secret2 : idk ???
-    @param secret3 : idk ???
+    @param {String} id - the level of id
+    @param {String} name - the level of name
+    @param {String} desc - the level of description
+    @param {String} data - the level of ziped string form
+    @param {String} version - the level of version
+    @param {String} creatorid - the level of creator's player id
+    @param {String} creatoraccid - the level of creator's account id
+    @param {String} creatorname - the level of creator's name
+    @param {Number} difficulty - the level of difficulty
+    @param {String} downloads - the level of download count
+    @param {String} audio - the level of gd song(0 ~ 20)
+    @param {String} gameVer - the level of Geometry Dash Version
+    @param {String} likes - the level of like count
+    @param {String} length - the level of length
+    @param {Boolean} isDemon - demon or not
+    @param {String} star - the level of rated star
+    @param {String} featuredScore - the level of featured score
+    @param {Boolean} isAuto - auto or not
+    @param {String} pass - the level of copy pass
+    @param {String} uploadedTS - the level of uploaded timestamp
+    @param {String} lastUpdatedTS - the level of last updated timestamp
+    @param {String} original - the level of original ver level id
+    @param {String} coinCount - the level of coin count
+    @param {String} coinVerified - coin verified or not
+    @param {String} requestedStars - the level of requested star
+    @param {String} ldm - ldm exist of not
+    @param {String} isEpic - epic level or not
+    @param {String} objectCount - the level of object count
+    @param {String} secret1 - idk ???
+    @param {String} secret2 - idk ???
+    @param {String} secret3 - idk ???
     */
 
     this.levelID = id;
@@ -66,6 +70,10 @@ function GDLevel(id, name, desc, data, version, creatorid, creatoraccid, creator
     this.levelSecret2 = secret2;
     this.levelSecret3 = secret3;
 
+}
+
+GDLevel.prototype.refresh = function(timeout){
+    return getLevel(GDClient.build(), this.levelID);
 }
 
 exports.GDLevel = GDLevel;
