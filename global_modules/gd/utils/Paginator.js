@@ -13,7 +13,6 @@ exports.Paginator = function (){
         this.currentPage = currentPage;
         this.maxItemsPerPage = maxItemsPerPage;
         this.totalItems = totalItems;
-        this.imple = params;
         this.totalPages = Math.floor(totalItems / maxItemsPerPage);
         this.pageMoveAction = pageMoveAction;
     }
@@ -27,18 +26,18 @@ exports.Paginator = function (){
     }
 
     Paginator.prototype.moveNext = function(){
-        params[2] = ++this.currentPage;
-        return this.pageMoveAction.apply(null, params);
+        this.currentPage++;
+        return this.pageMoveAction(this.currentPage);
     }
 
     Paginator.prototype.movePre = function(){
-        params[2] = ++this.currentPage;
-        return this.pageMoveAction.apply(null, params);
+        this.currentPage++;
+        return this.pageMoveAction(this.currentPage);
     }
 
     Paginator.prototype.moveSpecificPage = function(p){
         if(typeof p != "number" || p < 0) throw new GDError("Page must 0 or higher");
-        return this.pageMoveAction(p);
+        return this.pageMoveAction(this.currentPage = p);
     }
 
     return Paginator;
