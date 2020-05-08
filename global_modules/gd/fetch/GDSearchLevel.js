@@ -1,25 +1,25 @@
 //connect
-var Connect = require("../Fetch").Connection();
+var Connect = require("./Fetch").Connection();
 
 //entities
-var GDDifficulty = require("../../entities/Difficulty");
-var GDLength = require("../../entities/Length");
-var GDLevel = require("../../entities/Level").GDLevel();
-var GDSong = require("../../entities/Song").GDSong();
-var Indexes = require("../../entities/Index");
+var GDDifficulty = require("../entities/GDDifficulty");
+var GDLength = require("../entities/GDLength");
+var GDLevel = require("../entities/GDLevel").GDLevel();
+var GDSong = require("../entities/GDSong").GDSong();
+var Indexes = require("../entities/Index");
 
 //error
-var GDError = require("../../error/gderror").GDError;
+var GDError = require("../error/gderror").GDError;
 
 //logger
-var Logger = require("../../../log/Logger").Logger;
-var dir = require("../../../log/logs/setting").dir;
+var Logger = require("../../log/Logger").Logger;
+var dir = require("../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../../webtoolkit/webtoolkit.base64").Base64;
-var GDUtils = require("../../utils/gdutils");
+var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
+var GDUtils = require("../utils/GDUtils");
 var GDCrypto = GDUtils.GDCrypto();
-var Paginator = require("../../utils/Paginator").Paginator();
+var Paginator = require("../utils/Paginator").Paginator();
 
 function searchlevel(r, name, page, filter, field){
 
@@ -71,6 +71,7 @@ function searchlevel(r, name, page, filter, field){
                     var pages = GDUtils.Tuple3.apply(res[3].split(":"));
                     for(i in levels){
                         let lv = levels[i];
+                        let level_id = lv[Indexes.LEVEL_ID];
                         let cid = GDUtils.emptyTo(lv[Indexes.LEVEL_CREATOR_ID], "0");
                         let diff = GDDifficulty.getAbsoluteDifficulty(
                                     GDUtils.emptyTo(lv[Indexes.LEVEL_DIFFICULTY], "0"),
@@ -79,7 +80,7 @@ function searchlevel(r, name, page, filter, field){
                                     GDUtils.emptyTo(lv[Indexes.LEVEL_IS_DEMON], "0")
                                 );
                         levels[i] = new GDLevel(
-                                lv[Indexes.LEVEL_ID],
+                                level_id,
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_NAME], "-"),
                                 Base64.decode(GDUtils.emptyTo(lv[Indexes.LEVEL_DESCRIPTION], "")),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_DATA]),
@@ -121,12 +122,15 @@ function searchlevel(r, name, page, filter, field){
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_OBJECT_COUNT], "???"),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_1], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_2], ""),
-                                GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_3], "")
+                                GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_3], ""),
+                                () => searchlevel(r, name, page, filter, field)
                             );
                     }
 
-                    return new Paginator(levels, !page ? 0 : page, Number(pages[3]), Number(page[1]), Array.from(arguments), 
-                        (_r, _name, _page, _filter, _field) => searchlevel(_r, _name, _page, _filter, _field)
+                    return new Paginator(levels, !page ? 0 : page, Number(pages[3]), Number(page[1]),
+                        (function(newPage){
+                            return new searchlevel(r, name, newPage, filter, field);
+                        }).bind(this)
                     );
                 }
             });

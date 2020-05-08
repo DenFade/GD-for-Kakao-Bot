@@ -1,9 +1,5 @@
-//fetch
-var GDClient = require("../fetch/GDClient").GDClient;
-var getLevel = require("../fetch/level/GDGetLevel").getlevel;
-
 exports.GDLevel = function(){
-    function GDLevel(id, name, desc, data, version, creatorid, creatoraccid, creatorname, difficulty, downloads, audio, gameVer, likes, length, isDemon, star, featuredScore, isAuto, pass, uploadedTS, lastUpdatedTS, original, coinCount, coinVerified, requestedStars, ldm, isEpic, objectCount, secret1, secret2, secret3){
+    function GDLevel(id, name, desc, data, version, creatorid, creatoraccid, creatorname, difficulty, downloads, audio, gameVer, likes, length, isDemon, star, featuredScore, isAuto, pass, uploadedTS, lastUpdatedTS, original, coinCount, coinVerified, requestedStars, ldm, isEpic, objectCount, secret1, secret2, secret3, refresher){
 
         /*
         @param {String} id - the level of id
@@ -37,6 +33,7 @@ exports.GDLevel = function(){
         @param {String} secret1 - idk ???
         @param {String} secret2 - idk ???
         @param {String} secret3 - idk ???
+        @param {Function} refresher - the refresher
         */
 
         this.levelID = id;
@@ -70,11 +67,11 @@ exports.GDLevel = function(){
         this.levelSecret1 = secret1;
         this.levelSecret2 = secret2;
         this.levelSecret3 = secret3;
-
+        this.refresher = refresher;
     }
 
-    GDLevel.prototype.refresh = function(timeout){
-        return getLevel(GDClient.build(), this.levelID);
+    GDLevel.prototype.refresh = function(){
+        return this.refresher();
     }
 
     return GDLevel;

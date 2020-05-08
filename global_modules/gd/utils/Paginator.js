@@ -1,12 +1,11 @@
-function Paginator(){
-    function Paginator(items, currentPage, maxItemsPerPage, totalItems, params, pageMoveAction) {
+exports.Paginator = function (){
+    function Paginator(items, currentPage, maxItemsPerPage, totalItems, pageMoveAction) {
 
         /*
         @param items : levels, users, comments, etc..
         @param currentPage : currentPage number(count to 0, 1, 2..)
         @param maxItemsPerPage : max items count per page
         @param totlaItems : total items count
-        @param params : need for pageMoveAction
         @param pageMoveAction : function called when moving the page
         */
 
@@ -39,11 +38,8 @@ function Paginator(){
 
     Paginator.prototype.moveSpecificPage = function(p){
         if(typeof p != "number" || p < 0) throw new GDError("Page must 0 or higher");
-        params[2] = p;
-        return this.pageMoveAction.apply(null, params);
+        return this.pageMoveAction(p);
     }
 
     return Paginator;
 }
-
-exports.Paginator = Paginator;

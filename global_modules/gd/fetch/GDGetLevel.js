@@ -1,27 +1,27 @@
 //connect
-var Connect = require("../Fetch").Connection();
+var Connect = require("./Fetch").Connection();
 
 //entities
-var GDDifficulty = require("../../entities/Difficulty");
-var GDLength = require("../../entities/Length");
-var GDLevel = require("../../entities/Level").GDLevel();
-var GDSong = require("../../entities/Song").GDSong();
-var Indexes = require("../../entities/Index");
+var GDDifficulty = require("../entities/GDDifficulty");
+var GDLength = require("../entities/GDLength");
+var GDLevel = require("../entities/GDLevel").GDLevel();
+var GDSong = require("../entities/GDSong").GDSong();
+var Indexes = require("../entities/Index");
 
 //error
-var GDError = require("../../error/gderror").GDError;
+var GDError = require("../error/gderror").GDError;
 
 //logger
-var Logger = require("../../../log/Logger").Logger;
-var dir = require("../../../log/logs/setting").dir;
+var Logger = require("../../log/Logger").Logger;
+var dir = require("../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../../webtoolkit/webtoolkit.base64").Base64;
-var GDUtils = require("../../utils/gdutils");
+var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
+var GDUtils = require("../utils/GDUtils");
 var GDCrypto = GDUtils.GDCrypto();
 
 
-exports.getlevel = function(r, id){
+function getlevel(r, id){
 
     if(id == undefined) throw new GDError("Empty level id");
 
@@ -97,10 +97,12 @@ exports.getlevel = function(r, id){
                         GDUtils.emptyTo(lv[Indexes.LEVEL_OBJECT_COUNT], "???"),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_1], ""),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_2], ""),
-                        GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_3], "")
+                        GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_3], ""),
+                        () => getlevel(r, id)
                     );
                 }
 
             });
-    
 }
+
+exports.getlevel = getlevel;
