@@ -1,13 +1,13 @@
 //error
-const GDError = require("../error/gderror").GDError;
+var GDError = require("../error/gderror").GDError;
 
 //fetch
-const searchLevel = require("./level/GDSearchLevel").searchlevel;
-const getLevel = require("./level/GDGetLevel").getlevel;
+var searchLevel = require("./level/GDSearchLevel").searchlevel;
+var getLevel = require("./level/GDGetLevel").getlevel;
 
 //utils
-const GDUtils = require("../utils/gdutils");
-const GDCrypto = GDUtils.GDCrypto();
+var GDUtils = require("../utils/gdutils");
+var GDCrypto = GDUtils.GDCrypto();
 
 function GDClient(){
     this.gdw = 4;

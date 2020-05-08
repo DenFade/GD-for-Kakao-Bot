@@ -1,5 +1,5 @@
-const Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
-const SHA1 = require("../webtoolkit/webtoolkit.sha1").SHA1;
+var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
+var SHA1 = require("../webtoolkit/webtoolkit.sha1").SHA1;
 
 GDUtils = {
     convertTable: function(arr, regex){

@@ -1,4 +1,4 @@
-function Connection(){
+exports.Connection = function (){
     function Connection(url, header, body, timeout, cookie, method, ignoreType, toText, callback){
         this.url = url;
         this.header = header;
@@ -47,5 +47,3 @@ function Connection(){
 
     return Connection;
 }
-
-exports.Connection = Connection;

@@ -1,25 +1,25 @@
 //connect
-const Connect = require("../Fetch").Connection();
+var Connect = require("../Fetch").Connection();
 
 //entities
-const GDDifficulty = require("../../entities/Difficulty").GDDifficulty;
-const GDLength = require("../../entities/Length").GDLength;
-const GDLevel = require("../../entities/Level").GDLevel;
-const GDSong = require("../../entities/Song").GDSong;
-const Indexes = require("../../entities/Index");
+var GDDifficulty = require("../../entities/Difficulty");
+var GDLength = require("../../entities/Length");
+var GDLevel = require("../../entities/Level").GDLevel();
+var GDSong = require("../../entities/Song").GDSong();
+var Indexes = require("../../entities/Index");
 
 //error
-const GDError = require("../../error/gderror").GDError;
+var GDError = require("../../error/gderror").GDError;
 
 //logger
-const Logger = require("../../../log/Logger").Logger;
-const dir = require("../../../log/logs/setting").dir;
+var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
-const Base64 = require("../../webtoolkit/webtoolkit.base64").Base64;
-const GDUtils = require("../../utils/gdutils");
-const GDCrypto = GDUtils.GDCrypto();
-const Paginator = require("../../utils/Paginator").Paginator;
+var Base64 = require("../../webtoolkit/webtoolkit.base64").Base64;
+var GDUtils = require("../../utils/gdutils");
+var GDCrypto = GDUtils.GDCrypto();
+var Paginator = require("../../utils/Paginator").Paginator();
 
 function searchlevel(r, name, page, filter, field){
 

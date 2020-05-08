@@ -1,4 +1,4 @@
-const GDDifficulty = {
+module.exports = {
     NA: 0,
     AUTO: 1,
     EASY: 2,
@@ -47,5 +47,3 @@ const GDDifficulty = {
         }
     }
 }
-
-exports.GDDifficulty = GDDifficulty;

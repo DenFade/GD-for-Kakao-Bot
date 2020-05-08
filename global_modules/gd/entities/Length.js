@@ -1,4 +1,4 @@
-const GDLength = {
+module.exports = {
     "0": "TINY",
     "1": "SHORT",
     "2": "MEDIUM",
@@ -8,5 +8,3 @@ const GDLength = {
         return this[l];
     }
 }
-
-exports.GDLength = GDLength;
