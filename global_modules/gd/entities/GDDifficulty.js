@@ -1,4 +1,4 @@
-module.exports = {
+GDDifficulty = {
     NA: 0,
     AUTO: 1,
     EASY: 2,
@@ -47,3 +47,5 @@ module.exports = {
         }
     }
 }
+
+module.exports = GDDifficulty;

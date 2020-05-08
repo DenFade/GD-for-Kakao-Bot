@@ -28,7 +28,7 @@ Logger.prototype.write = function(status, text, implements){
 }
 
 Logger.prototype.lookUp = function(filter){
-    let l = JSON.parse(FileStream.read(this.path));
+    let l = JSON.parse(FileStream.read(this.path)).log;
     return !filter ? l : l.filter(filter);
 }
 
