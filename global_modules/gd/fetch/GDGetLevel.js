@@ -18,7 +18,7 @@ var dir = require("../../log/logs/setting").dir;
 //utils
 var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
 var GDUtils = require("../utils/GDUtils");
-var GDCrypto = GDUtils.GDCrypto();
+var GDCrypto = require("../utils/GDCrypto");
 
 
 function getlevel(r, id){
@@ -84,7 +84,7 @@ function getlevel(r, id){
                             let p = lv[Indexes.LEVEL_PASS];
                             if(!p) return "";
                             else if(p.startsWith("Aw==")) return "Free to Copy";
-                            else return new GDCrypto(p).decodeLevelPass().substring(1) || "Not Copyable";
+                            else return GDCrypto.decodeLevelPass(p).substring(1) || "Not Copyable";
                         }).bind(this)(),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_UPLOADED_TIMESTAMP], "NA"),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_LAST_UPDATED_TIMESTAMP], "NA"),

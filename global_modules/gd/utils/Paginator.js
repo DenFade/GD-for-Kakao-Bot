@@ -1,4 +1,4 @@
-exports.Paginator = function (){
+exports.Paginator = function Paginator(){
     function Paginator(items, currentPage, maxItemsPerPage, totalItems, pageMoveAction) {
 
         /*

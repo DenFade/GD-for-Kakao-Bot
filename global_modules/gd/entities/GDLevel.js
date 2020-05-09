@@ -1,4 +1,4 @@
-exports.GDLevel = function(){
+exports.GDLevel = function GDLevel(){
     function GDLevel(id, name, desc, data, version, creatorid, creatoraccid, creatorname, difficulty, downloads, audio, gameVer, likes, length, isDemon, star, featuredScore, isAuto, pass, uploadedTS, lastUpdatedTS, original, coinCount, coinVerified, requestedStars, ldm, isEpic, objectCount, secret1, secret2, secret3, refresher){
 
         /*

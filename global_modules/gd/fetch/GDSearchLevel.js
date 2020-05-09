@@ -18,7 +18,7 @@ var dir = require("../../log/logs/setting").dir;
 //utils
 var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
 var GDUtils = require("../utils/GDUtils");
-var GDCrypto = GDUtils.GDCrypto();
+var GDCrypto = require("../utils/GDCrypto");
 var Paginator = require("../utils/Paginator").Paginator();
 
 function searchlevel(r, name, page, filter, field){
@@ -123,14 +123,12 @@ function searchlevel(r, name, page, filter, field){
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_1], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_2], ""),
                                 GDUtils.emptyTo(lv[Indexes.LEVEL_SECRET_STUFF_3], ""),
-                                () => searchlevel(r, name, page, filter, field)
+                                () => getlevel(r, name, page, filter, field)
                             );
                     }
 
-                    return new Paginator(levels, !page ? 0 : page, Number(pages[3]), Number(page[1]),
-                        (function(newPage){
-                            return new searchlevel(r, name, newPage, filter, field);
-                        }).bind(this)
+                    return new Paginator(levels, !page ? 0 : page, Number(pages[2]), Number(page[0]),
+                        newPage => new searchlevel(r, name, newPage, filter, field)
                     );
                 }
             });

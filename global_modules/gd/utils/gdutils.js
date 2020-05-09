@@ -40,97 +40,9 @@ GDUtils = {
         var bytes = [];
         for(var i = 0; i < str.length; i++) {
             var char = str.charCodeAt(i);
-            bytes.push(char >>> 8);
             bytes.push(char & 0xFF);
         }   
         return bytes;
-    },
-    GDCrypto: function(){
-        function GDCrypto(str){
-            this.str = str;
-        }
-
-        GDCrypto.message = '14251';
-        GDCrypto.levelpass = '26364';
-        GDCrypto.accountpass = '37526';
-        GDCrypto.levelscore = '39673';
-        GDCrypto.level = '41274';
-        GDCrypto.comment = '29481';
-        GDCrypto.challenges = '19847';
-        GDCrypto.rewards = '59182';
-        GDCrypto.like_rate = '58281';
-        GDCrypto.userscore = '85271';
-
-        GDCrypto.prototype.xorcipher = function(str, key){
-            var key = GDUtils.getBytes(""+key)
-            var strBytes = GDUtils.getBytes(str);
-            var result = new Int8Array(strBytes.length);
-        
-            for (i = 0; i < strBytes.length; i++){
-                result[i] = strBytes[i] ^ key[i % key.length];
-            }
-            var string = "";
-            for(i=0; i<result.length; i++){
-                string += String.fromCharCode(result[i]);
-            }
-            return string;
-        }
-
-        GDCrypto.prototype.encode = function(str, key){
-            str = this.xorcipher(str, key);
-            return Base64.encode(str);
-        }
-
-        GDCrypto.prototype.decode = function(str, key){
-            str = Base64.decode(str);
-            return this.xorcipher(str, key);
-        }
-
-        GDCrypto.prototype.encodeAccPass = function(){
-            return this.encode(this.str, GDCrypto.accountpass);
-        }
-
-        GDCrypto.prototype.decodeAccPass = function(){
-            return this.decode(this.str, GDCrypto.accountpass);
-        }
-
-        GDCrypto.prototype.encodeMsgBody = function(){
-            return this.encode(this.str, GDCrypto.message);
-        }
-
-        GDCrypto.prototype.decodeMsgBody = function(){
-            return this.decode(this.str, GDCrypto.message);
-        }
-
-        GDCrypto.prototype.encodeLevelPass = function(){
-            return this.encode(this.str, GDCrypto.levelpass);
-        }
-
-        GDCrypto.prototype.decodeLevelPass = function(){
-            return this.decode(this.str, GDCrypto.levelpass);
-        }
-
-        GDCrypto.makeRs = function(len){
-            if(len === undefined) len = 10;
-            var charTable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return "_".repeat(len).replace(/_/g, (a,b) => charTable[Math.random()*charTable.length|0]);
-        }
-
-        GDCrypto.makeChk = function(args, key){
-            args = args.concat(key);
-            args = SHA1(args.join(''))
-            return this.prototype.encode(args, key);
-        }
-
-        GDCrypto.makeUdid = function(){
-            return "dflab" + GDUtils.randomInt(100000, 100000000000);
-        }
-
-        GDCrypto.makeUuid = function(){
-            return "dflab" + GDUtils.randomInt(100000, 100000000);
-        }
-
-        return GDCrypto;
     }
 };
 

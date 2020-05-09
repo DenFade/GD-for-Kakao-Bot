@@ -7,7 +7,7 @@ var getLevel = require("./fetch/GDGetLevel").getlevel;
 
 //utils
 var GDUtils = require("./utils/GDUtils");
-var GDCrypto = GDUtils.GDCrypto();
+var GDCrypto = require("./utils/GDCrypto");
 
 function GDClient(){
     this.gdw = 4;
@@ -46,7 +46,7 @@ GDClient.prototype.login = function(accid, nick, pass){
 
     this.accountID = accid;
     this.nick = nick;
-    this.pass = new GDCrypto(pass).encodeAccPass();
+    this.pass = GDCrypto.encodeAccPass(pass);
     this.authicated = true;
 
     return this;

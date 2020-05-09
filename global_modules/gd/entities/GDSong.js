@@ -1,4 +1,4 @@
-exports.GDSong = function (){
+exports.GDSong = function GDSong(){
     function GDSong(author, id, title, isNGSong, size, downloadLink, secretLink){
 
         /*
