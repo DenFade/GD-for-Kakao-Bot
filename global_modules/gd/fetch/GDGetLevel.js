@@ -16,7 +16,7 @@ var Logger = require("../../log/Logger").Logger;
 var dir = require("../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
+var Base64 = require("../utils/Base64");
 var GDUtils = require("../utils/GDUtils");
 var GDCrypto = require("../utils/GDCrypto");
 

@@ -1,6 +1,3 @@
-var Base64 = require("../webtoolkit/webtoolkit.base64").Base64;
-var SHA1 = require("../webtoolkit/webtoolkit.sha1").SHA1;
-
 GDUtils = {
     convertTable: function(arr, regex){
         newMap = {};
@@ -35,14 +32,6 @@ GDUtils = {
     }, //fuck you bitch (by 승기 & Refox)
     emptyTo: function(d, r){
         return d === null || d === undefined ? r : d;
-    },
-    getBytes: function(str){
-        var bytes = [];
-        for(var i = 0; i < str.length; i++) {
-            var char = str.charCodeAt(i);
-            bytes.push(char & 0xFF);
-        }   
-        return bytes;
     }
 };
 

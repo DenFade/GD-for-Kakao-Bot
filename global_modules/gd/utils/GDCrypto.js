@@ -1,4 +1,5 @@
 var Base64 = require("./Base64");
+var SHA1 = require("../webtoolkit/webtoolkit.sha1").SHA1;
 
 var GDCrypto = {
 
