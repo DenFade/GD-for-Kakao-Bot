@@ -10,6 +10,7 @@ Before using this..
 
 아래 절차를 꼼꼼히 읽어주세요.
 
+<br>
 > 1. __다운로드__
 
 ![썸네일](/Images-for-readme/1.PNG)
@@ -20,7 +21,7 @@ __Download ZIP__ 버튼을 눌러 다운로드 하세요.
 
 다운로드를 완료하셨다면 압축을 풀어주세요.
 
-
+<br>
 > 2. __폴더이동__
 
 
@@ -28,7 +29,7 @@ __Download ZIP__ 버튼을 눌러 다운로드 하세요.
 
 gd, log 라는 두 폴더가 있을껍니다. 두 폴더를 선택후 MessengerBot R의 global_modules 폴더로 이동시켜주세요.
 
-
+<br>
 > 3. __setting.js 파일 생성__
 
 
@@ -59,6 +60,8 @@ exports.dir = "scripts";
 exports.dir = "";
 ```
 이런식으로 빈문자를 넣으면 됩니다.
+
+<br>
 
 ---
 
