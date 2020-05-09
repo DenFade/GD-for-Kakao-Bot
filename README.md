@@ -44,7 +44,7 @@ exports.dir = " /*MessengerBot R전용폴더 이름*/ ";
 라는 내용으로 작성해주세요.
 
 예시를 들자면, 저는 
-> storage/emulated/0/__scripts__/global_modules/gd/...
+> storage/emulated/0/__scripts__/global_modules/log/logs/setting.js
 
 이런식으로 __scripts__ 라는 폴더를 MessengerBot R 전용폴더로 지정 해두었습니다.
 
