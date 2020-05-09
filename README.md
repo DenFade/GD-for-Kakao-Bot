@@ -12,7 +12,7 @@ Before using this..
 
 > 1. __다운로드__
 
-![](/images-for-readme/1.png)
+![dd](/images-for-readme/1.png)
 
 __Download ZIP__ 버튼을 눌러 다운로드 하세요.
 
@@ -20,13 +20,17 @@ __Download ZIP__ 버튼을 눌러 다운로드 하세요.
 
 다운로드를 완료하셨다면 압축을 풀어주세요.
 
+
 > 2. __폴더이동__
+
 
 압축을 푸셨다면 GD-for-Kakao-Bot/global_modules 폴더에 들어가보세요.
 
 gd, log 라는 두 폴더가 있을껍니다. 두 폴더를 선택후 MessengerBot R의 global_modules 폴더로 이동시켜주세요.
 
+
 > 3. __setting.js 파일 생성__
+
 
 MessengerBot R의 global_modules폴더에 gd, log폴더를 옮기셨다면, log폴더에 들어가주세요. _Logger.js_ 이외에 아무것도 없을껍니다.
 
