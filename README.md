@@ -58,7 +58,7 @@ exports.dir = "scripts";
 ```js
 exports.dir = "";
 ```
-이런식으로 빈문자 넣으면 됩니다.
+이런식으로 빈문자를 넣으면 됩니다.
 
 ---
 
