@@ -12,7 +12,7 @@ Before using this..
 
 > 1. __다운로드__
 
-![썸네일](/images-for-readme/1.png)
+![썸네일](/images-for-readme/1.PNG)
 
 __Download ZIP__ 버튼을 눌러 다운로드 하세요.
 
