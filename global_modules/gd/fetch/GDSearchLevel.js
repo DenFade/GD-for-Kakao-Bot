@@ -1,5 +1,5 @@
 //connect
-var Connect = require("./Fetch").Connection();
+var Connect = require("./Request").Connection();
 
 //entities
 var GDDifficulty = require("../entities/GDDifficulty");
@@ -72,7 +72,7 @@ function searchlevel(r, name, page, filter, field){
                         let ps = res[3].split(":");
                         return GDUtils.Tuple3(ps[0], ps[1], ps[2]);
                     }).bind(this)();
-                    logger.write("[TEST ACTION]", pages, null);
+                    
                     for(i in levels){
                         let lv = levels[i];
                         let level_id = lv[Indexes.LEVEL_ID];

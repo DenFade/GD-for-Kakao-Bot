@@ -43,9 +43,7 @@ exports.Paginator = function Paginator(){
     Paginator.prototype.toString = function(){
         let ls = this.items.map(v => v.toString()).join("\n\n\n");
         return "    --- Paginator Data ---\n\n"+
-                "       --- Items ---\n\n"+
-                ls+
-                "\n\n       --- Paginator Info ---\n\n"+
+                "items : "+ this.items.length + "Items.."+
                 "currentPage : " + this.currentPage +"\n"+
                 "maxItemPerPage : " + this.maxItemsPerPage +"\n"+
                 "totalItems : " + this.totalItems +"\n"+

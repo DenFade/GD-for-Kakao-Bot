@@ -1,5 +1,5 @@
 //connect
-var Connect = require("./Fetch").Connection();
+var Connect = require("./Request").Connection();
 
 //entities
 var GDDifficulty = require("../entities/GDDifficulty");
