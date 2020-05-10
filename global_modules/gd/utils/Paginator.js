@@ -40,5 +40,18 @@ exports.Paginator = function Paginator(){
         return this.pageMoveAction(this.currentPage = p);
     }
 
+    Paginator.prototype.toString = function(){
+        let ls = this.items.map(v => v.toString()).join("\n\n\n");
+        return "    --- Paginator Data ---\n\n"+
+                "       --- Items ---\n\n"+
+                ls+
+                "\n\n       --- Paginator Info ---\n\n"+
+                "currentPage : " + this.currentPage +"\n"+
+                "maxItemPerPage : " + this.maxItemsPerPage +"\n"+
+                "totalItems : " + this.totalItems +"\n"+
+                "totalPages : " + this.totalPages +"\n"+
+                "pageMoveAction : " + this.pageMoveAction;
+    }
+
     return Paginator;
 }

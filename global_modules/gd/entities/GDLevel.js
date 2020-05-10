@@ -74,5 +74,10 @@ exports.GDLevel = function GDLevel(){
         return this.refresher();
     }
 
+    GDLevel.prototype.toString = function(){
+        let p = Object.keys(this);
+        return "    ---Level Data---" + "\n\n" + p.map(v => v + " : " + this[v]).join("\n");
+    }
+
     return GDLevel;
 }

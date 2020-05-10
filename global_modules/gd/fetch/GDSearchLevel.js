@@ -68,7 +68,11 @@ function searchlevel(r, name, page, filter, field){
                     var levels = res[0].split("|").map(v => GDUtils.convertTable(v, ":"));
                     var creators = res[1].split("|").map(v => GDUtils.Tuple3.apply(null, v.split(":")));
                     var songs = res[2].split(":").map(v => v == "" ? null : GDUtils.convertTable(v, "~|~"));
-                    var pages = GDUtils.Tuple3.apply(res[3].split(":"));
+                    var pages = (function (){
+                        let ps = res[3].split(":");
+                        return GDUtils.Tuple3(ps[0], ps[1], ps[2]);
+                    }).bind(this)();
+                    logger.write("[TEST ACTION]", pages, null);
                     for(i in levels){
                         let lv = levels[i];
                         let level_id = lv[Indexes.LEVEL_ID];
@@ -127,7 +131,7 @@ function searchlevel(r, name, page, filter, field){
                             );
                     }
 
-                    return new Paginator(levels, !page ? 0 : page, Number(pages[2]), Number(page[0]),
+                    return new Paginator(levels, !page ? 0 : page, Number(pages[2]), Number(pages[0]),
                         newPage => new searchlevel(r, name, newPage, filter, field)
                     );
                 }

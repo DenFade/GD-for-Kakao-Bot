@@ -17,16 +17,16 @@ var GDCrypto = {
     xorcipher: function(str, key){
         var keyBytes = new java.lang.String(key).getBytes();
         var strBytes = new java.lang.String(str).getBytes();
-        var arr = new Int8Array(strBytes.length);
+        var arr = new Array(strBytes.length);
     
         for (i = 0; i < strBytes.length; i++){
-            arr[i] = strBytes[i] ^ keyBytes[i % keyBytes.length];
+            arr[i] = String.fromCharCode(strBytes[i] ^ keyBytes[i % keyBytes.length]);
         }
         /*var result = "";
         for(k = 0; k < arr.length; k++){
             result += String.fromCharCode(result[i]);
         }*/
-        return new java.lang.String(arr);
+        return arr.join("");
     },
 
     encode : function(str, key){

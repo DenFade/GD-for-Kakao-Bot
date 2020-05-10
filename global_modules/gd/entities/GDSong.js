@@ -44,5 +44,10 @@ exports.GDSong = function GDSong(){
         "20": new GDSong("MDK", 20, "Fingerdash")
     };
 
+    GDSong.prototype.toString = function(){
+        let p = Object.keys(this);
+        return "    ---Song Data---" + "\n\n" + p.map(v => v + " : " + this[v]).join("\n");
+    }
+
     return GDSong;
 }
