@@ -70,3 +70,5 @@ function loadmessages(r, page){
             }
     )
 }
+
+exports.loadmessages = loadmessages;
