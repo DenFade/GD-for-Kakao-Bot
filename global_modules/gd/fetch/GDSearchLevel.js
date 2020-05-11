@@ -11,6 +11,9 @@ var Indexes = require("../entities/Index");
 //error
 var GDError = require("../error/gderror").GDError;
 
+//fetch
+var getlevel = require("./GDGetLevel").getlevel;
+
 //logger
 var Logger = require("../../log/Logger").Logger;
 var dir = require("../../log/logs/setting").dir;
@@ -18,7 +21,6 @@ var dir = require("../../log/logs/setting").dir;
 //utils
 var Base64 = require("../utils/Base64");
 var GDUtils = require("../utils/GDUtils");
-var GDCrypto = require("../utils/GDCrypto");
 var Paginator = require("../utils/Paginator").Paginator();
 
 function searchlevel(r, name, page, filter, field){
@@ -63,6 +65,7 @@ function searchlevel(r, name, page, filter, field){
                     logger.write(Logger.ERROR, "Received Code -1");
                     return -1;
                 } else {
+                    if(r.rawData) logger.write(Logger.DESCRIPTION, res, null);
                     
                     res = res.split("#");
                     var levels = res[0].split("|").map(v => GDUtils.convertTable(v, ":"));

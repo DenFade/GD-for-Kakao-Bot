@@ -1,0 +1,1 @@
+module.exports = ["OPEN", "FRIEND_ONLY", "PRIVATE"];

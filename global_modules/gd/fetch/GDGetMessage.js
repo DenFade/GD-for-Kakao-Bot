@@ -37,6 +37,8 @@ function getmessage(r, id){
                     logger.write(Logger.ERROR, "Received Code -1");
                     return -1;
                 } else {
+                    if(r.rawData) logger.write(Logger.DESCRIPTION, res, null);
+                    
                     var m = GDUtils.convertTable(res, ":");
                     return GDCrypto.decodeMsgBody(m[Indexes.MESSAGE_BODY]);
                 }

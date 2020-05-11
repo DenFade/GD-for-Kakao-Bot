@@ -15,6 +15,8 @@ Logger.build = function(dir, name){
 
 Logger.SUCCESS = "[SUCCESS !]";
 Logger.ERROR = "[ERROR !]";
+Logger.TESTACTION = "[TEST ACTION]";
+Logger.DESCRIPTION = "[DESCRIPTION]";
 
 Logger.prototype.write = function(status, text, implements){
     let f = JSON.parse(FileStream.read(this.path));

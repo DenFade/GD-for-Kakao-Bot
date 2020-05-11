@@ -40,6 +40,8 @@ function loadmessages(r, page){
                     logger.write(Logger.ERROR, "Received Code -1");
                     return -1;
                 } else {
+                    if(r.rawData) logger.write(Logger.DESCRIPTION, res, null);
+                    
                     res = res.split("#");
 
                     var messages = res[0].split("|").map(v => GDUtils.convertTable(v, ":"));

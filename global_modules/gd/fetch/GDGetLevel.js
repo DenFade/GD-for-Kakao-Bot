@@ -39,6 +39,7 @@ function getlevel(r, id){
                     logger.write(Logger.ERROR, "Received Code -1");
                     return -1;
                 } else {
+                    if(r.rawData) logger.write(Logger.DESCRIPTION, res, null);
 
                     let lv = GDUtils.convertTable(res, ":");
                     let cid = GDUtils.emptyTo(lv[Indexes.LEVEL_CREATOR_ID], "0");

@@ -32,6 +32,12 @@ GDClient.prototype.setSecret = function(secret){
     if(!secret) throw new GDError("Secret must not be empty");
 
     this.secret = secret;
+    return this;
+}
+
+GDClient.prototype.toggleLoggingRawData = function(b) {
+    this.rawData = b;
+    return this;
 }
 
 GDClient.prototype.login = function(accid, nick, pass){
