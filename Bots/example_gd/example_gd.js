@@ -16,7 +16,14 @@ function response(room, msg, sender, isGroupChat, bot, imageDB, packageName){
     
     if(bot.isDebugChat){
 
-        if(msg.startsWith("~level ")){
+        if(msg.startsWith("~eval ")){
+            try{
+                bot.reply(eval(msg.substring(6)));
+            } catch(e){
+                bot.reply(e.message + "\n\n" + e.stack);
+            }
+            return;
+        } else if(msg.startsWith("~level ")){
             let result, level = msg.substring(7);
             if(!level){
                 bot.reply("레벨 이름 혹은 ID를 입력하세요.");
