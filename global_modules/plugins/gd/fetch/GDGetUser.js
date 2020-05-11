@@ -1,5 +1,5 @@
 //connect
-var Connect = require("./Request").Connection();
+var Connect = require("../../request/Request").Connection();
 
 //entities
 var GDPrivateScope = require("../entities/GDPrivateScope");
@@ -8,7 +8,7 @@ var GDUser = require("../entities/GDUser").GDUser();
 var Indexes = require("../entities/Index");
 
 //error
-var GDError = require("../error/gderror").GDError;
+var GDError = require("../error/GDError").GDError;
 
 //logger
 var Logger = require("../../log/Logger").Logger;

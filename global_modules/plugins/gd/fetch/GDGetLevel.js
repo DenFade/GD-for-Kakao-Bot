@@ -1,5 +1,5 @@
 //connect
-var Connect = require("./Request").Connection();
+var Connect = require("../../request/Request").Connection();
 
 //entities
 var GDDifficulty = require("../entities/GDDifficulty");
@@ -9,7 +9,7 @@ var GDSong = require("../entities/GDSong").GDSong();
 var Indexes = require("../entities/Index");
 
 //error
-var GDError = require("../error/gderror").GDError;
+var GDError = require("../error/GDError").GDError;
 
 //logger
 var Logger = require("../../log/Logger").Logger;

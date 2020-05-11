@@ -1,5 +1,5 @@
 //connect
-var Connect = require("./Request").Connection();
+var Connect = require("../../request/Request").Connection();
 
 //entities
 var Indexes = require("../entities/Index");

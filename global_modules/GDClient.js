@@ -1,9 +1,18 @@
 //error
-var GDError = require("./plugins/gd/error/gderror").GDError;
+var GDError = require("./plugins/gd/error/GDError").GDError;
 
 //fetch
+
+//fetch - level
 var searchLevel = require("./plugins/gd/fetch/GDSearchLevel").searchlevel;
 var getLevel = require("./plugins/gd/fetch/GDGetLevel").getlevel;
+
+//fetch - user
+var getUser = require("./plugins/gd/fetch/GDGetUser").getuser;
+
+//fetch - account message
+var loadMessages = require("./plugins/gd/fetch/GDLoadMessages").loadmessages;
+var getMessage = require("./plugins/gd/fetch/GDGetMessage").getmessage;
 
 //utils
 var GDUtils = require("./plugins/gd/utils/GDUtils");
@@ -61,12 +70,12 @@ GDClient.prototype.login = function(accid, nick, pass){
 GDClient.prototype.searchLevel = function(name, page, filter, field){
 
     /*
-    @param {String} name - level name
-    @param {Number} page - search page
-    @param {GDFilter} filter - search filter
-    @param {Number} field - REGULAR, MOST LIKED, etc..
+    @param {String} name - 레벨 이름
+    @param {Number} page - 페이지
+    @param {GDFilter} filter - 검색 필터
+    @param {Number} field - REGULAR, MOST LIKED, 등등..
     
-    @returns {Connect (Paginator)} - list of levels
+    @return {Connect (Paginator)} - GDPaginator 객체
     */
 
     return searchLevel(this, name, page, filter, field);
@@ -76,12 +85,45 @@ GDClient.prototype.searchLevel = function(name, page, filter, field){
 GDClient.prototype.getLevel = function(id){
 
     /*
-    @param {String||Number} id - level id
+    @param {Number} id - 레벨 ID
 
-    @returns {Connect (GDLevel)} - the level
+    @return {Connect (GDLevel)} - GDLevel객체
     */
 
     return getLevel(this, id);
+}
+
+GDClient.prototype.getUser = function(id){
+    
+    /*
+    @param {Number} id - 플레이어의 Account ID
+
+    @return {Connect (GDUser)} - GDUser객체
+    */
+
+    return getUser(this, id);
+}
+
+GDClient.prototype.loadMessages = function(page){
+
+    /*
+    @param {Number} page - 페이지
+
+    @return {Connect (Paginator)} - GDPaginator객체
+    */
+
+    return loadMessages(this, page);
+}
+
+GDClient.prototype.getMessage = function(id){
+
+    /*
+    @param {Number} id - 메시지 ID
+
+    @return {Connect (String)} - 메시지 내용
+    */
+
+    return getMessage(this, id);
 }
 
 exports.GDClient = GDClient;
