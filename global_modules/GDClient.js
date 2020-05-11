@@ -1,13 +1,13 @@
 //error
-var GDError = require("./error/gderror").GDError;
+var GDError = require("./plugins/gd/error/gderror").GDError;
 
 //fetch
-var searchLevel = require("./fetch/GDSearchLevel").searchlevel;
-var getLevel = require("./fetch/GDGetLevel").getlevel;
+var searchLevel = require("./plugins/gd/fetch/GDSearchLevel").searchlevel;
+var getLevel = require("./plugins/gd/fetch/GDGetLevel").getlevel;
 
 //utils
-var GDUtils = require("./utils/GDUtils");
-var GDCrypto = require("./utils/GDCrypto");
+var GDUtils = require("./plugins/gd/utils/GDUtils");
+var GDCrypto = require("./plugins/gd/utils/GDCrypto");
 
 function GDClient(){
     this.gdw = 4;
