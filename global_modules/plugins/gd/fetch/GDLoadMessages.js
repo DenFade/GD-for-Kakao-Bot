@@ -59,7 +59,7 @@ function loadmessages(r, page){
                                 let s = GDUtils.emptyTo(m[Indexes.MESSAGE_SUBJECT], "");
                                 return !s ? "" : Base64.decode(s);
                             }).bind(this)(),
-                            (id) => getMessage(id).block(),
+                            (id) => getMessage(r, id).block(),
                             GDUtils.emptyTo(m[Indexes.MESSAGE_TIMESTAMP], "0"),
                             GDUtils.emptyTo(m[Indexes.MESSAGE_IS_READ], "0") == "1"
                         );
