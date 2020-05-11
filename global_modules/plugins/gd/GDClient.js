@@ -1,22 +1,22 @@
 //error
-var GDError = require("./plugins/gd/error/GDError").GDError;
+var GDError = require("./error/GDError").GDError;
 
 //fetch
 
 //fetch - level
-var searchLevel = require("./plugins/gd/fetch/GDSearchLevel").searchlevel;
-var getLevel = require("./plugins/gd/fetch/GDGetLevel").getlevel;
+var searchLevel = require("./fetch/GDSearchLevel").searchlevel;
+var getLevel = require("./fetch/GDGetLevel").getlevel;
 
 //fetch - user
-var getUser = require("./plugins/gd/fetch/GDGetUser").getuser;
+var getUser = require("./fetch/GDGetUser").getuser;
 
 //fetch - account message
-var loadMessages = require("./plugins/gd/fetch/GDLoadMessages").loadmessages;
-var getMessage = require("./plugins/gd/fetch/GDGetMessage").getmessage;
+var loadMessages = require("./fetch/GDLoadMessages").loadmessages;
+var getMessage = require("./fetch/GDGetMessage").getmessage;
 
 //utils
-var GDUtils = require("./plugins/gd/utils/GDUtils");
-var GDCrypto = require("./plugins/gd/utils/GDCrypto");
+var GDUtils = require("./utils/GDUtils");
+var GDCrypto = require("./utils/GDCrypto");
 
 function GDClient(){
     this.gdw = 4;

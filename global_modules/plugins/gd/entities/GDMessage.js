@@ -20,7 +20,7 @@ exports.GDMessage = function GDMessage(){
     }
 
     GDMessage.prototype.getBody = function(){
-        var b = this.messageBodyLoader(this.messageId).block();
+        var b = this.messageBodyLoader(this.messageId);
         if(this.messageBody === null) this.messageBody = b;
         return b;
     }

@@ -1,1 +1,6 @@
-global_modules/log/logs/
+#log file
+global_modules/log/logs/*
+
+#example bot file
+Bots/example_gd/*
+!*.js

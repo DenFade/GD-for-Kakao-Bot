@@ -5,6 +5,7 @@ var Connect = require("../../request/Request").Connection();
 var GDDifficulty = require("../entities/GDDifficulty");
 var GDLength = require("../entities/GDLength");
 var GDLevel = require("../entities/GDLevel").GDLevel();
+var GDSearchField = require("../entities/GDSearchField");
 var GDSong = require("../entities/GDSong").GDSong();
 var Indexes = require("../entities/Index");
 
@@ -31,7 +32,7 @@ function searchlevel(r, name, page, filter, field){
     var body = {
         str: encodeURI(name),
         page: GDUtils.emptyTo(page, 0),
-        type: GDUtils.emptyTo(field, Indexes.STRATEGY_REGULAR),
+        type: GDUtils.emptyTo(field, GDSearchField.REGULAR),
         uncompleted: GDUtils.emptyTo(filter.uncompleted, 0),
         onlyCompleted: GDUtils.emptyTo(filter.onlyCompleted, 0),
         featured: GDUtils.emptyTo(filter.featured, 0),
