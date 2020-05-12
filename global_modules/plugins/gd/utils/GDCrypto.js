@@ -68,9 +68,8 @@ var GDCrypto = {
     },
 
     makeChk: function(args, key){
-        args = args.concat(key);
         args = SHA1(args.join(''))
-        return GDCrypto.prototype.encode(args, key);
+        return GDCrypto.encode(args, key);
     },
 
     makeUuid: function(){
