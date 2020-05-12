@@ -26,7 +26,7 @@ function likelevel(r, id, like, customUdid){
     var fakeUdid = GDUtils.emptyTo(customUdid, GDCrypto.makeUuid());
     var fakeUuid = r.udata.id;
     var rs = GDCrypto.makeRs();
-    var chunkData = [special, id, like, type, rs, r.accountID, fakeUdid, fakeUuid, "ysg6pUrtjn0J"];
+    var chunkData = [special, id, like, type, rs, r.accountID, fakeUdid, fakeUuid];
                     //special, levelId, like, type, rs, accountId, udid, uuid, salt
 
     var body = {
@@ -40,7 +40,7 @@ function likelevel(r, id, like, customUdid){
         type: type,
         special: special,
         rs: rs,
-        chk: chunkData
+        chk: GDCrypto.makeChk(chunkData, "ysg6pUrtjn0J")
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,

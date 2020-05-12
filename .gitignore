@@ -7,3 +7,6 @@ Bots/example_gd/*
 
 #credential file
 credential
+
+#vscode setting file
+.vscode/*
