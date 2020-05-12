@@ -1,3 +1,6 @@
+//entities
+var Indexes = require("./entities/Index");
+
 //error
 var GDError = require("./error/GDError").GDError;
 
@@ -6,6 +9,7 @@ var GDError = require("./error/GDError").GDError;
 //fetch - level
 var searchLevel = require("./fetch/GDSearchLevel").searchlevel;
 var getLevel = require("./fetch/GDGetLevel").getlevel;
+var likeLevel = require("./fetch/GDLikeLevel").likelevel;
 
 //fetch - user
 var getUser = require("./fetch/GDGetUser").getuser;
@@ -19,7 +23,7 @@ var GDUtils = require("./utils/GDUtils");
 var GDCrypto = require("./utils/GDCrypto");
 
 function GDClient(){
-    this.gdw = 4;
+    this.gdw = 0;
     this.gameVersion = 21;
     this.binaryVersion = 35;
     this.secret = "Wmfd2893gb7";
@@ -49,7 +53,7 @@ GDClient.prototype.toggleLoggingRawData = function(b) {
     return this;
 }
 
-GDClient.prototype.login = function(accid, nick, pass){
+GDClient.prototype.login = function(accid, pass){
 
     /*
     @param accid : the account of id
@@ -59,10 +63,15 @@ GDClient.prototype.login = function(accid, nick, pass){
 
     if(!accid || !pass) throw new GDError("AccountID and password must not be empty");
 
+    var udata = getUser(this, accid).block();
+
     this.accountID = accid;
-    this.nick = nick;
     this.pass = GDCrypto.encodeAccPass(pass);
-    this.authicated = true;
+    this.udata = {
+        name: udata[Indexes.PROFILE_NAME],
+        id: udata[Indexes.PROFILE_PLAYER_ID]
+    };
+    this.authenticated = true;
 
     return this;
 }
@@ -91,6 +100,19 @@ GDClient.prototype.getLevel = function(id){
     */
 
     return getLevel(this, id);
+}
+
+GDClient.prototype.likeLevel = function(id, like, uid){
+
+    /*
+    @param {Number} id - 레벨의 ID
+    @param {Boolean} like - 좋아요: true, 싫어요: false
+    @param {String} uid - 디바이스 식별자
+
+    @return {Connect (String)} - SUCCESS 또는 ERROR
+    */
+
+    return likeLevel(this, id, like, uid);
 }
 
 GDClient.prototype.getUser = function(id){

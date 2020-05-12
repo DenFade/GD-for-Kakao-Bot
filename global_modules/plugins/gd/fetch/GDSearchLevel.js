@@ -43,7 +43,7 @@ function searchlevel(r, name, page, filter, field){
         star: GDUtils.emptyTo(filter.star, 0)
     }
 
-    if(r.authicated){
+    if(r.authenticated){
         body.accountID = r.accountID;
         body.gjp = r.pass;
         body.extra = 1;

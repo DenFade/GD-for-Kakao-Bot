@@ -19,7 +19,7 @@ function getmessage(r, id){
 
     if(id == undefined) throw new GDError("Empty message id");
 
-    if(!r.authicated) throw new GDError("Need Login")
+    if(!r.authenticated) throw new GDError("Need Login")
 
     var body = {
         messageID: id,

@@ -16,7 +16,6 @@ var dir = require("../../log/logs/setting").dir;
 
 //utils
 var GDUtils = require("../utils/GDUtils");
-var Paginator = require("../utils/Paginator").Paginator();
 
 function getuser(r, id){
 

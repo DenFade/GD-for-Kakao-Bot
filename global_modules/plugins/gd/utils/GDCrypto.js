@@ -63,7 +63,7 @@ var GDCrypto = {
 
     makeRs: function(len){
         if(len === undefined) len = 10;
-        var charTable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var charTable = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         return "_".repeat(len).replace(/_/g, (a,b) => charTable[Math.random()*charTable.length|0]);
     },
 
@@ -73,12 +73,8 @@ var GDCrypto = {
         return GDCrypto.prototype.encode(args, key);
     },
 
-    makeUdid: function(){
-        return "dflab" + GDUtils.randomInt(100000, 100000000000);
-    },
-
     makeUuid: function(){
-        return "dflab" + GDUtils.randomInt(100000, 100000000);
+        return ("fffffff-" + GDCrypto.makeRs(4) + "-" + GDCrypto.makeRs(4) + "-ffff-ffff" + GDCrypto.makeRs(8)).toLowerCase();
     }
 }
 

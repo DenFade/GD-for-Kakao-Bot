@@ -8,10 +8,10 @@ GDUtils = {
         return newMap;
     },
     bodyParser: function(r, body){
-        body.gdw = r.gdw;
-        body.binaryVersion = r.binaryVersion;
-        body.gameVersion = r.gameVersion;
-        body.secret = r.secret;
+        body.gdw = GDUtils.emptyTo(body.gdw, r.gdw);
+        body.binaryVersion = GDUtils.emptyTo(body.binaryVersion, r.binaryVersion);
+        body.gameVersion = GDUtils.emptyTo(body.gameVersion, r.gameVersion);
+        body.secret = GDUtils.emptyTo(body.secret, r.secret);
         var result = [];
         for(i in body){
             result.push(i+"="+body[i]);

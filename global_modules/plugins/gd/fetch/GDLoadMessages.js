@@ -22,7 +22,7 @@ var Paginator = require("../utils/Paginator").Paginator();
 
 function loadmessages(r, page){
     
-    if(!r.authicated) throw new GDError("Need Login");
+    if(!r.authenticated) throw new GDError("Need Login");
 
     var body = {
         page: GDUtils.emptyTo(page, 0),
