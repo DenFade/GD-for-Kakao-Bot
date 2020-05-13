@@ -15,39 +15,25 @@ var dir = require("../../log/logs/setting").dir;
 var GDUtils = require("../utils/GDUtils");
 var GDCrypto = require("../utils/GDCrypto");
 
-function likelevel(r, id, like, customUdid){
+function ratedemon(r, id, demon, customUdid){
 
     if(id === undefined) throw new GDError("Empty Level ID");
+    if(demon < 1 || demon > 5) throw new GDError("Demon Value must be 1~5 integer");
     if(!r.authenticated) throw new GDError("Need Login");
 
-    var type = 1;
-    var special = 0;
-    var like = +GDUtils.emptyTo(like, true);
-    var fakeUdid = GDUtils.emptyTo(customUdid, GDCrypto.makeUuid());
-    var fakeUuid = r.udata.id;
-    var rs = GDCrypto.makeRs();
-    var chunkData = [special, id, like, type, rs, r.accountID, fakeUdid, fakeUuid, GDCrypto.salts.like_rate];
-                    //special, levelId, like, type, rs, accountId, udid, uuid, salt
-
     var body = {
-        gameVersion: 20,
+        secret: GDCrypto.secrets.RATE_DEMON,
         accountID: r.accountID,
         gjp: r.pass,
-        udid: fakeUdid,
-        uuid: fakeUuid,
-        itemID: id,
-        like: like,
-        type: type,
-        special: special,
-        rs: rs,
-        chk: GDCrypto.makeChk(chunkData, GDCrypto.like_rate)
+        levelID: id,
+        rating: demon
     };
 
-    return Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
+    return Connect.POST(GDUtils.URL(Indexes.URL_RATE_LEVEL_DEMON), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
             (res, err) => {
                 let logger = Logger.build(dir, "gdlogs");
                 if(err !== null){
-                    logger.write(Logger.ERROR, "An error has occured -> from 'GDLikeLevel.js'", err);
+                    logger.write(Logger.ERROR, "An error has occured -> from 'GDRateDemonLevel.js'", err);
                     return null;
                 } else if(res == "-1"){
                     logger.write(Logger.ERROR, "Received Code -1");
@@ -61,4 +47,4 @@ function likelevel(r, id, like, customUdid){
     );
 }
 
-exports.likelevel = likelevel;
+exports.ratedemon = ratedemon;

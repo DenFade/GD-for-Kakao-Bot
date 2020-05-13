@@ -1,5 +1,5 @@
-#log file
-global_modules/log/logs/*
+#vscode setting file
+.vscode/*
 
 #example bot file
 Bots/example_gd/*
@@ -8,5 +8,9 @@ Bots/example_gd/*
 #credential file
 credential
 
-#vscode setting file
-.vscode/*
+#log file
+global_modules/log/logs/*
+!*.js
+
+
+

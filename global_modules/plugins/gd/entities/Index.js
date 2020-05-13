@@ -150,5 +150,11 @@ module.exports = {
     URL_GET_COMMENT_HISTORY: 'getGJCommentHistory',
     URL_GET_ACCOUNT_URL: 'getAccountURL',
     URL_LIKE_ITEM: 'likeGJItem211',
-    URL_TEST_SONG: 'testSong'
+    URL_TEST_SONG: 'testSong',
+
+/* GAUNTLET INDEX */
+
+    GAUNTLET_ID: 1,
+    GAUNTLET_LEVELS: 3
+    
 }

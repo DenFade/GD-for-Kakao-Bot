@@ -31,6 +31,8 @@ function searchlevel(r, name, page, filter, field){
 
     var body = {
         str: encodeURI(name),
+        diff: GDUtils.emptyTo(filter.diff, "-"),
+        len: GDUtils.emptyTo(filter.len, "-"),
         page: GDUtils.emptyTo(page, 0),
         type: GDUtils.emptyTo(field, GDSearchField.REGULAR),
         uncompleted: GDUtils.emptyTo(filter.uncompleted, 0),
@@ -41,12 +43,6 @@ function searchlevel(r, name, page, filter, field){
         coins: GDUtils.emptyTo(filter.coins, 0),
         epic: GDUtils.emptyTo(filter.epic, 0),
         star: GDUtils.emptyTo(filter.star, 0)
-    }
-
-    if(r.authenticated){
-        body.accountID = r.accountID;
-        body.gjp = r.pass;
-        body.extra = 1;
     }
 
     if(filter.noStar) body.noStar = 1;

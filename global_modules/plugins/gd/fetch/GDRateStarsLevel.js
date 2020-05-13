@@ -15,39 +15,34 @@ var dir = require("../../log/logs/setting").dir;
 var GDUtils = require("../utils/GDUtils");
 var GDCrypto = require("../utils/GDCrypto");
 
-function likelevel(r, id, like, customUdid){
+function ratestars(r, id, star, customUdid){
 
     if(id === undefined) throw new GDError("Empty Level ID");
+    if(star < 1 || star > 10) throw new GDError("Star value must be 1~10 integer");
     if(!r.authenticated) throw new GDError("Need Login");
 
-    var type = 1;
-    var special = 0;
-    var like = +GDUtils.emptyTo(like, true);
     var fakeUdid = GDUtils.emptyTo(customUdid, GDCrypto.makeUuid());
     var fakeUuid = r.udata.id;
     var rs = GDCrypto.makeRs();
-    var chunkData = [special, id, like, type, rs, r.accountID, fakeUdid, fakeUuid, GDCrypto.salts.like_rate];
-                    //special, levelId, like, type, rs, accountId, udid, uuid, salt
+    var chunkData = [id, star, rs, r.accountID, fakeUdid, fakeUuid, GDCrypto.salts.like_rate];
+                    //levelId, like, rs, accountId, udid, uuid, salt
 
     var body = {
-        gameVersion: 20,
         accountID: r.accountID,
         gjp: r.pass,
         udid: fakeUdid,
         uuid: fakeUuid,
-        itemID: id,
-        like: like,
-        type: type,
-        special: special,
+        levelID: id,
+        stars: star,
         rs: rs,
         chk: GDCrypto.makeChk(chunkData, GDCrypto.like_rate)
     };
 
-    return Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
+    return Connect.POST(GDUtils.URL(Indexes.URL_RATE_LEVEL_STARS), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
             (res, err) => {
                 let logger = Logger.build(dir, "gdlogs");
                 if(err !== null){
-                    logger.write(Logger.ERROR, "An error has occured -> from 'GDLikeLevel.js'", err);
+                    logger.write(Logger.ERROR, "An error has occured -> from 'GDRateStarsLevel.js'", err);
                     return null;
                 } else if(res == "-1"){
                     logger.write(Logger.ERROR, "Received Code -1");
@@ -61,4 +56,4 @@ function likelevel(r, id, like, customUdid){
     );
 }
 
-exports.likelevel = likelevel;
+exports.ratestars = ratestars;

@@ -14,6 +14,18 @@ var GDCrypto = {
     like_rate: '58281',
     userscore: '85271',
 
+    secrets: {
+        RATE_DEMON: "Wmfp3879gc3"
+    },
+
+    salts: {
+        level: "xI25fpAapCQg",
+        comment: "xPT6iUrtws0J",
+        like_rate: "ysg6pUrtjn0J",
+        userscore: "xI35fsAapCRg",
+        levelscore: "yPg6pUrtWn0J",
+    },
+
     xorcipher: function(str, key){
         var keyBytes = new java.lang.String(key).getBytes();
         var strBytes = new java.lang.String(str).getBytes();
@@ -22,10 +34,6 @@ var GDCrypto = {
         for (i = 0; i < strBytes.length; i++){
             arr[i] = String.fromCharCode(strBytes[i] ^ keyBytes[i % keyBytes.length]);
         }
-        /*var result = "";
-        for(k = 0; k < arr.length; k++){
-            result += String.fromCharCode(result[i]);
-        }*/
         return arr.join("");
     },
 

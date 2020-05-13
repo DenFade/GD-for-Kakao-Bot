@@ -54,7 +54,7 @@ function getlevel(r, id){
                         lv[Indexes.LEVEL_ID],
                         GDUtils.emptyTo(lv[Indexes.LEVEL_NAME], "-"),
                         Base64.decode(GDUtils.emptyTo(lv[Indexes.LEVEL_DESCRIPTION], "")),
-                        GDUtils.emptyTo(lv[Indexes.LEVEL_DATA]),
+                        GDUtils.emptyTo(lv[Indexes.LEVEL_DATA], ""),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_VERSION], "0"),
                         cid,
                         "",

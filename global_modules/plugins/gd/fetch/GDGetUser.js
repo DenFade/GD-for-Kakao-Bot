@@ -29,7 +29,7 @@ function getuser(r, id){
             (res, err) => {
                 let logger = Logger.build(dir, "gdlogs");
                 if(err !== null){
-                    logger.write(Logger.ERROR, "An error has occured -> from 'GDSearchLevel.js'", err);
+                    logger.write(Logger.ERROR, "An error has occured -> from 'GDGetUser.js'", err);
                 } else if(res == "-1"){
                     logger.write(Logger.ERROR, "Received Code -1");
                     return -1;
