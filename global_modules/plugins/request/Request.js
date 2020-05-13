@@ -1,6 +1,6 @@
 //logger
 var Logger = require("../log/Logger").Logger;
-var dir = require("../../log/logs/setting").dir;
+var dir = require("../../plugins/log/logs/setting").dir;
 
 var logger = Logger.build(dir, "requestException");
 
