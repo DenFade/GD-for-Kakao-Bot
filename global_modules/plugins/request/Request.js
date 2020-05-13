@@ -46,10 +46,22 @@ exports.Connection = function (){
             res = this.result.execute().body();
             return this.callback(this.toText ? res.toString() : res, null);
         } catch(e){
-            logger.write(Logger.ERROR, e.message, this);
+            logger.write(Logger.ERROR, "Connection Data: \n\n" + this.toString(), null);
             this.callback(null, e);
             return;
         }
+    }
+
+    Connection.prototype.toString = function(){
+        return "URL: "+this.url+"\n"+
+                "Header: "+JSON.stringify(this.header)+"\n"+
+                "Body: "+this.body+"\n"+
+                "Timeout: "+this.timeout+"\n"+
+                "Cookie: "+JSON.stringify(this.cookie)+"\n"+
+                "IgnoreType: "+this.ignoreType+"\n"+
+                "ToText: "+this.toText+"\n"+
+                "Callback"+this.callback+"\n"+
+                "Result: "+this.result.toString()
     }
 
     return Connection;
