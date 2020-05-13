@@ -1,6 +1,6 @@
 function Logger(dir, name){
     this.name = name;
-    this.path = "/storage/emulated/0/" + dir + "/global_modules/log/logs/" + name + ".json";
+    this.path = "/storage/emulated/0/" + dir + "/global_modules/plugins/log/logs/" + name + ".json";
 
     if(!new java.io.File(this.path).exists()) FileStream.write(this.path, JSON.stringify({
         dir: dir,
