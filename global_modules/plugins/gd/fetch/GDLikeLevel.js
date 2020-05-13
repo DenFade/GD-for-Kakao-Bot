@@ -40,7 +40,7 @@ function likelevel(r, id, like, customUdid){
         type: type,
         special: special,
         rs: rs,
-        chk: GDCrypto.makeChk(chunkData, GDCrypto.)
+        chk: GDCrypto.makeChk(chunkData, GDCrypto.rate)
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_LIKE_ITEM), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
