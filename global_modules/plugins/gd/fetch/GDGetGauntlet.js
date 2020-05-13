@@ -38,13 +38,15 @@ function getgauntlet(r){
                     if(r.rawData) logger.write(Logger.DESCRIPTION, res, null);
 
                     res = res.split("#");
-                    let gs = res[0].split("|").map(v => GDUtils.convertTable(":"));
+                    let gs = res[0].split("|").map(v => GDUtils.convertTable(v, ":"));
                     logger.write(Logger.TESTACTION, "Secret Value: " + res[1], null); //res[1] 은 본인도 뭐하는앤지 ㅁㄹ
                     
                     for(g in gs){
                         let gData = gs[g];
-                        gs[g] = new GDLevelPackage(GDGauntlet[gData[Indexes.GAUNTLET_ID]] + "_GAUNTLET",
-                        gData[Indexes.GAUNTLET_LEVELS].split(","),
+                        logger.write(Logger.TESTACTION, JSON.stringify(gData), null);
+                        let gLevels = gData[Indexes.GAUNTLET_LEVELS].split(",");
+                        gs[g] = new GDLevelPackage(GDGauntlet.list[gData[Indexes.GAUNTLET_ID]] + "_GAUNTLET",
+                        gLevels,
                             id => getLevel(r, id).block()
                         );
                     }
