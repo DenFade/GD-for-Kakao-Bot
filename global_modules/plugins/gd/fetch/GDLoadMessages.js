@@ -25,9 +25,10 @@ function loadmessages(r, page){
     if(!r.authenticated) throw new GDError("Need Login");
 
     var body = {
+        total: 0,
         page: GDUtils.emptyTo(page, 0),
         accountID: r.accountID,
-        gjp: r.pass
+        gjp: r.pass,
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_GET_PRIVATE_MESSAGES), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
@@ -55,6 +56,7 @@ function loadmessages(r, page){
                         messages[i] = new GDMessage(
                             m[Indexes.MESSAGE_ID],
                             GDUtils.emptyTo(m[Indexes.MESSAGE_SENDER_ID], "0"),
+                            GDUtils.emptyTo(m[Indexes.MESSAGE_SENDER_NAME], "-"),
                             (function (){
                                 let s = GDUtils.emptyTo(m[Indexes.MESSAGE_SUBJECT], "");
                                 return !s ? "" : Base64.decode(s);

@@ -40,17 +40,15 @@ GDClient.build = function(){
     return new GDClient();
 }
 
+//var client = GDClient.build()
+//                     .setTimeout(10000)
+//                     .toggleLoggingRawData(true)
+//                     .login(id, passw0rd)
+
 GDClient.prototype.setTimeout = function(t){
     if(!t && typeof t !== "number") throw new GDError("Timeout must be integer");
 
     this.timeout = t;
-    return this;
-}
-
-GDClient.prototype.setSecret = function(secret){
-    if(!secret) throw new GDError("Secret must not be empty");
-
-    this.secret = secret;
     return this;
 }
 
@@ -62,9 +60,8 @@ GDClient.prototype.toggleLoggingRawData = function(b) {
 GDClient.prototype.login = function(accid, pass){
 
     /*
-    @param accid : the account of id
-    @param nick : the profile of nickname
-    @param pass : the account of password 
+    @param {Number} accid - the account of id
+    @param {String} pass - the account of password 
     */
 
     if(!accid || !pass) throw new GDError("AccountID and password must not be empty");
@@ -90,7 +87,7 @@ GDClient.prototype.searchLevel = function(name, page, filter, field){
     @param {GDFilter} filter - 검색 필터
     @param {Number} field - REGULAR, MOST LIKED, 등등..
     
-    @return {Connect (Paginator)} - GDPaginator 객체
+    @return {Connection (Paginator)} - Paginator 객체
     */
 
     return searchLevel(this, name, page, filter, field);
@@ -102,7 +99,7 @@ GDClient.prototype.getLevel = function(id){
     /*
     @param {Number} id - 레벨 ID
 
-    @return {Connect (GDLevel)} - GDLevel객체
+    @return {Connection (GDLevel)} - GDLevel객체
     */
 
     return getLevel(this, id);
@@ -113,7 +110,7 @@ GDClient.prototype.getUser = function(id){
     /*
     @param {Number} id - 플레이어의 Account ID
 
-    @return {Connect (GDUser)} - GDUser객체
+    @return {Connection (GDUser)} - GDUser객체
     */
 
     return getUser(this, id);
@@ -124,7 +121,7 @@ GDClient.prototype.loadMessages = function(page){
     /*
     @param {Number} page - 페이지
 
-    @return {Connect (Paginator)} - GDPaginator객체
+    @return {Connection (Paginator)} - Paginator객체
     */
 
     return loadMessages(this, page);
@@ -135,7 +132,7 @@ GDClient.prototype.getMessage = function(id){
     /*
     @param {Number} id - 메시지 ID
 
-    @return {Connect (String)} - 메시지 내용
+    @return {Connection (String)} - 메시지 내용
     */
 
     return getMessage(this, id);
@@ -148,7 +145,7 @@ GDClient.prototype.likeLevel = function(id, like, udid){
     @param {Boolean} like - 좋아요: true, 싫어요: false
     @param {String} udid - 디바이스 식별자
 
-    @return {Connect (String)} - SUCCESS 또는 ERROR
+    @return {Connection (String)} - SUCCESS 또는 ERROR
     */
 
     return likeLevel(this, id, like, udid);
@@ -161,7 +158,7 @@ GDClient.prototype.rateStars = function(id, star, udid){
     @param {Number} star - 추천할 난이도(1~10)
     @param {String} udid - 디바이스 식별자
 
-    @return {Connect (String)} - SUCCESS 또는 ERROR
+    @return {Connection (String)} - SUCCESS 또는 ERROR
     */
 
     return rateStars(this, id, star, udid);
@@ -173,7 +170,7 @@ GDClient.prototype.rateDemon = function(id, demon){
     @param {Number} id - 레벨의 ID
     @param {Number} star - 추천할 데몬난이도(1~5)
 
-    @return {Connect (String)} - SUCCESS 또는 ERROR
+    @return {Connection (String)} - SUCCESS 또는 ERROR
     */
 
     return rateDemon(this, id, demon);
@@ -182,7 +179,7 @@ GDClient.prototype.rateDemon = function(id, demon){
 GDClient.prototype.getGauntlet = function(){
 
     /*
-    @return {Connect (GDGauntlet)} - 건틀렛 정보
+    @return {Connection (GDGauntlet)} - 건틀렛 정보
     */
 
     return getGauntlet(this);

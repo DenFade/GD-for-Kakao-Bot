@@ -71,7 +71,7 @@ module.exports = {
     SONG_TITLE: 2,
     SONG_AUTHOR: 4,
     SONG_SIZE: 5,
-    SONG_SECRET_URL: 7,  //@Unidentified
+    SONG_SECRET_URL: 7,
     SONG_URL: 10,
 
 /* MESSAGE INDEX */
@@ -118,7 +118,7 @@ module.exports = {
     URL_DOWNLOAD_LEVEL: 'downloadGJLevel22',
     URL_LEVEL_SEARCH: 'getGJLevels21',
     URL_UPDATE_LEVEL_DESC: 'updateGJDesc20',
-    URL_GET_MAP_PACKS: 'getGJMapPacks21',
+    URL_GET_MAPPACKS: 'getGJMapPacks21',
     URL_GET_GAUNTLETS: 'getGJGauntlets21',
     URL_DELETE_LEVEL: 'deleteGJLevelUser20',
     URL_GET_SONG_INFO: 'getGJSongInfo',
@@ -151,6 +151,27 @@ module.exports = {
     URL_GET_ACCOUNT_URL: 'getAccountURL',
     URL_LIKE_ITEM: 'likeGJItem211',
     URL_TEST_SONG: 'testSong',
+
+/* REQUEST INDEX */    
+
+    REQUEST_SENDER_NAME: 1,
+    REQUEST_SENDER_ID: 2,
+    REQUEST_SENDER_ACCOUNT_ID: 16,
+    REQUEST_ID: 32,
+    REQUEST_BODY: 35,
+    REQUEST_TIMESTAMP: 37,
+    REQUEST_STATUS: 41,
+    REQUEST_INDICATOR: 101,
+
+/* MAPPACK INDEX */    
+
+    MAPPACK_ID: 1,
+    MAPPACK_NAME: 2,
+    MAPPACK_LEVEL_IDS: 3,
+    MAPPACK_STARS: 4,
+    MAPPACK_COINS: 5,
+    MAPPACK_DIFFICULTY: 6,
+    MAPPACK_COLOR: 7,
 
 /* GAUNTLET INDEX */
 

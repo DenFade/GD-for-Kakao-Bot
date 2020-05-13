@@ -1,17 +1,19 @@
 exports.GDMessage = function GDMessage(){
-    function GDMessage(id, senderId, subject, loader, ts, isRead){
+    function GDMessage(id, senderId, senderName, subject, loader, ts, isRead){
         
         /*
         @param {String} id - 메시지의 id입니다
         @param {String} senderId - 수신자의 id입니다
+        @param {String} senderName - 수신자의 이름입니다
         @param {String} subject - 메시지의 제목입니다
-        @param {Function} loader - 메시지의 내용을 불러올 함수입니다.
-        @param {String} ts - 메시지의 TimeStamp입니다.
-        @param {Boolean} isRead - 메시지의 확인 여부입니다.
+        @param {Function} loader - 메시지의 내용을 불러올 함수입니다
+        @param {String} ts - 메시지의 TimeStamp입니다
+        @param {Boolean} isRead - 메시지의 확인 여부입니다
         */
         
         this.messageId = id;
         this.messageSenderId = senderId;
+        this.messageSenderName = senderName
         this.messageSubject = subject;
         this.messageBody = null;
         this.messageTimeStamp = ts;

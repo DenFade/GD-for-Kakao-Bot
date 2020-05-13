@@ -29,7 +29,7 @@ GDUtils = {
     },
     randomInt: function(n, m){
         return Math.floor(Math.random()*(m-n+1))+n;
-    }, //fuck you bitch (by 승기 & Refox)
+    }, //fuck you bitch (by 승기(병신))
     emptyTo: function(d, r){
         return d === null || d === undefined ? r : d;
     }
