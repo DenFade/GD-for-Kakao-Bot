@@ -1,3 +1,9 @@
+//logger
+var Logger = require("../log/Logger").Logger;
+var dir = require("../../log/logs/setting").dir;
+
+var logger = Logger.build(dir, "requestException");
+
 exports.Connection = function (){
     function Connection(url, header, body, timeout, cookie, method, ignoreType, toText, callback){
         this.url = url;
@@ -40,6 +46,7 @@ exports.Connection = function (){
             res = this.result.execute().body();
             return this.callback(this.toText ? res.toString() : res, null);
         } catch(e){
+            logger.write(Logger.ERROR, e.message, this);
             this.callback(null, e);
             return;
         }
