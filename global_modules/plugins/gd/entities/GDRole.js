@@ -1,1 +1,0 @@
-module.exports = ["USER", "MODERATOR", "ELDER_MODERATOR"];
