@@ -1,10 +1,98 @@
-GD-for-Kakao-Bot
-================
+## Geometry Dash Modules
+RhinoJS Geometry Dash Module
+> **Note**: This module can be run on [Rhino](https://developer.mozilla.org/ko/docs/Rhino) and is unstable as it is a beta version.
 
-MessengerBot R 에서 사용가능한 Geometry Dash 모듈입니다.
-몇가지 준비해야 될 사항들이 있습니다.
-아래 절차를 따라주세요.
+### All Methods
+```javascript
+- ** GDClient.js **
 
+- GDClient.build() { GDClient }
+-         .setTimeout(@Number timeout) { this }
+-         .toggleLoggingRawData(@Boolean bool) { this }
+-         .login(@String accid, @String password) { this }
+
+- GDClient.searchLevel(@String name, @Number page, @GDFilter filter, @Number field) { Connection (Paginator) }
+- GDClient.getLevel(@Number id) { Connection (GDLevel) }
+- GDClient.getUser(@Number id) { Connection (GDUser) }
+- GDClient.loadMessages(@Number page) { Connection (Paginator) }
+- GDClient.getGauntlet() { Connection (GDGauntlet) }
+
+- GDClient.likeLevel(@Number id, @Boolean like, @String udid) { String ("SUCCESS" or "ERROR") }
+- GDClient.rateStars(@Number id, @Number star, @String udid) {  String ("SUCCESS" or "ERROR") }
+- GDClient.rateDemon(@Number id, @Number demon) {  String ("SUCCESS" or "ERROR") }
+```
+
+### Reference
+```javascript
+- ** GDLevel.js **
+
+- this.levelID
+- this.levelName
+- this.levelDescription
+- this.levelData
+- this.levelVersion
+- this.levelCreatorID
+- this.levelCreatorAccountID
+- this.levelCreatorName
+- this.levelDifficulty
+- this.levelDownloads
+- this.levelAudioTrack
+- this.levelGDVersion
+- this.levelLikes
+- this.levelLength
+- this.levelIsDemon
+- this.levelStars
+- this.levelFeaturedScore
+- this.levelIsAuto
+- this.levelPass
+- this.levelUploaded
+- this.levelLastUpdated
+- this.levelOriginal
+- this.levelCoinCount
+- this.levelCoinVerified
+- this.levelRequstedStars
+- this.levelHasLdm
+- this.levelIsEpic
+- this.levelObjectCount
+- this.levelSecret1
+- this.levelSecret2
+- this.levelSecret3
+- this.refresher
+
+
+- ** GDUser.js **
+
+- this.userName
+- this.userPlayerID
+- this.userStars
+- this.userDemons
+- this.userCreatorPoints
+- this.userIcon
+- this.userColor1
+- this.userColor2
+- this.userSecretCoins
+- this.userGlowOutline
+- this.userAccountID
+- this.userUserCoins
+- this.userPrivateMessage
+- this.userFriendRequest
+- this.userYoutube
+- this.userIconCube
+- this.userIconShip
+- this.userIconBall
+- this.userIconUfo
+- this.userIconWave
+- this.userIconRobot
+- this.userGlowOutline2
+- this.userGlobalRank
+- this.userIconSpider
+- this.userTwitter
+- this.userTwitch
+- this.userDiamonds
+- this.userDeathEffect
+- this.userRole
+- this.userCommentHistory
+```
 Before using this..
 ===================
 
