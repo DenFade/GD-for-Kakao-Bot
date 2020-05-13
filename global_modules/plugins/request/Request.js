@@ -60,7 +60,6 @@ exports.Connection = function (){
                 "Cookie: "+JSON.stringify(this.cookie)+"\n"+
                 "IgnoreType: "+this.ignoreType+"\n"+
                 "ToText: "+this.toText+"\n"+
-                "Callback"+this.callback+"\n"+
                 "Result: "+this.result.toString()
     }
 

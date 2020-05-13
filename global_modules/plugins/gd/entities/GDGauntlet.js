@@ -23,7 +23,7 @@ exports.GDGauntlet = function GDGauntlet(){
         "15": "DEATH"
     };
 
-    GDGauntlet.toString = function(){
+    GDGauntlet.prototype.toString = function(){
         let glist = Object.keys(this);
         return "    --- Gauntlet Data ---\n\n"+
                 glist.map(v => "Name: " + this[v].title + "\nLevels: " + 
