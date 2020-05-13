@@ -9,8 +9,4 @@ Bots/example_gd/*
 credential
 
 #log file
-global_modules/log/logs/*
-!*.js
-
-
-
+global_modules/plugins/log/logs/*
