@@ -54,3 +54,5 @@ function getgauntlet(r){
             }
     );
 }
+
+exports.getgauntlet = getgauntlet;

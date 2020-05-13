@@ -24,7 +24,7 @@ function ratestars(r, id, star, customUdid){
     var fakeUdid = GDUtils.emptyTo(customUdid, GDCrypto.makeUuid());
     var fakeUuid = r.udata.id;
     var rs = GDCrypto.makeRs();
-    var chunkData = [id, star, rs, r.accountID, fakeUdid, fakeUuid, GDCrypto.salts.like_rate];
+    var chunkData = [id, star, rs, r.accountID, fakeUdid, fakeUuid, GDCrypto.salts.rate];
                     //levelId, like, rs, accountId, udid, uuid, salt
 
     var body = {
@@ -35,7 +35,7 @@ function ratestars(r, id, star, customUdid){
         levelID: id,
         stars: star,
         rs: rs,
-        chk: GDCrypto.makeChk(chunkData, GDCrypto.like_rate)
+        chk: GDCrypto.makeChk(chunkData, GDCrypto.rate)
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_RATE_LEVEL_STARS), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,

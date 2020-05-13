@@ -11,7 +11,7 @@ var GDCrypto = {
     comment: '29481',
     challenges: '19847',
     rewards: '59182',
-    like_rate: '58281',
+    rate: '58281',
     userscore: '85271',
 
     secrets: {
@@ -21,7 +21,7 @@ var GDCrypto = {
     salts: {
         level: "xI25fpAapCQg",
         comment: "xPT6iUrtws0J",
-        like_rate: "ysg6pUrtjn0J",
+        rate: "ysg6pUrtjn0J",
         userscore: "xI35fsAapCRg",
         levelscore: "yPg6pUrtWn0J",
     },

@@ -4,12 +4,10 @@ var Indexes = require("./entities/Index");
 //error
 var GDError = require("./error/GDError").GDError;
 
-//fetch
-
 //fetch - level
 var searchLevel = require("./fetch/GDSearchLevel").searchlevel;
 var getLevel = require("./fetch/GDGetLevel").getlevel;
-var likeLevel = require("./fetch/GDLikeLevel").likelevel;
+
 
 //fetch - user
 var getUser = require("./fetch/GDGetUser").getuser;
@@ -17,6 +15,14 @@ var getUser = require("./fetch/GDGetUser").getuser;
 //fetch - account message
 var loadMessages = require("./fetch/GDLoadMessages").loadmessages;
 var getMessage = require("./fetch/GDGetMessage").getmessage;
+
+//fetch - rate
+var likeLevel = require("./fetch/GDLikeLevel").likelevel;
+var rateStars = require("./fetch/GDRateStarsLevel").ratestars;
+var rateDemon = require("./fetch/GDRateDemonLevel").ratedemon;
+
+//fetch - gauntlet
+var getGauntlet = require("./fetch/GDGetGauntlet").getgauntlet;
 
 //utils
 var GDUtils = require("./utils/GDUtils");
@@ -102,19 +108,6 @@ GDClient.prototype.getLevel = function(id){
     return getLevel(this, id);
 }
 
-GDClient.prototype.likeLevel = function(id, like, uid){
-
-    /*
-    @param {Number} id - 레벨의 ID
-    @param {Boolean} like - 좋아요: true, 싫어요: false
-    @param {String} uid - 디바이스 식별자
-
-    @return {Connect (String)} - SUCCESS 또는 ERROR
-    */
-
-    return likeLevel(this, id, like, uid);
-}
-
 GDClient.prototype.getUser = function(id){
     
     /*
@@ -146,6 +139,53 @@ GDClient.prototype.getMessage = function(id){
     */
 
     return getMessage(this, id);
+}
+
+GDClient.prototype.likeLevel = function(id, like, udid){
+
+    /*
+    @param {Number} id - 레벨의 ID
+    @param {Boolean} like - 좋아요: true, 싫어요: false
+    @param {String} udid - 디바이스 식별자
+
+    @return {Connect (String)} - SUCCESS 또는 ERROR
+    */
+
+    return likeLevel(this, id, like, udid);
+}
+
+GDClient.prototype.rateStars = function(id, star, udid){
+
+    /*
+    @param {Number} id - 레벨의 ID
+    @param {Number} star - 추천할 난이도(1~10)
+    @param {String} udid - 디바이스 식별자
+
+    @return {Connect (String)} - SUCCESS 또는 ERROR
+    */
+
+    return rateStars(this, id, star, udid);
+}
+
+GDClient.prototype.rateDemon = function(id, demon){
+
+    /*
+    @param {Number} id - 레벨의 ID
+    @param {Number} star - 추천할 데몬난이도(1~5)
+
+    @return {Connect (String)} - SUCCESS 또는 ERROR
+    */
+
+    return rateDemon(this, id, demon);
+}
+
+GDClient.prototype.getGauntlet = function(){
+
+    /*
+    @return {Connect (GDGauntlet)} - 건틀렛 정보
+    */
+
+    return getGauntlet(this);
 }
 
 exports.GDClient = GDClient;

@@ -15,7 +15,7 @@ var dir = require("../../log/logs/setting").dir;
 var GDUtils = require("../utils/GDUtils");
 var GDCrypto = require("../utils/GDCrypto");
 
-function ratedemon(r, id, demon, customUdid){
+function ratedemon(r, id, demon){
 
     if(id === undefined) throw new GDError("Empty Level ID");
     if(demon < 1 || demon > 5) throw new GDError("Demon Value must be 1~5 integer");
