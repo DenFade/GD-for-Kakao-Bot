@@ -3,6 +3,7 @@ exports.GDGauntlet = function GDGauntlet(){
         for(g in gauntlets){
             this[gauntlets[g].title.replace("_GAUNTLET", "")] = gauntlets[g];
         }
+        return this;
     }
 
     GDGauntlet.list = {
@@ -27,7 +28,7 @@ exports.GDGauntlet = function GDGauntlet(){
         let glist = Object.keys(this);
         return "    --- Gauntlet Data ---\n\n"+
                 glist.map(v => "Name: " + this[v].title + "\nLevels: " + 
-                    (!this[v].itemGetAction ? this[v].items : this[v].items.map(v => v[1])).join()
+                    (this[v].itemGetAction ? this[v].items : this[v].items.map(v => v[1])).join()
                 ).join("\n\n");
     }
 
