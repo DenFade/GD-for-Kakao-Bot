@@ -61,19 +61,7 @@ function getlevel(r, id){
                         "",
                         diff,
                         GDUtils.emptyTo(lv[Indexes.LEVEL_DOWNLOADS], "0"),
-                        lv[Indexes.LEVEL_SONG_ID] == "0" ? GDSong.basicSongs[lv[Indexes.LEVEL_AUDIO_TRACK]]
-                            : (function(){
-                                let s = songs.find(v => v[1] == lv[Indexes.SONG_ID]);
-                                return !s ? null : new GDSong(
-                                    GDUtils.emptyTo(s[Indexes.SONG_AUTHOR], ""),
-                                    GDUtils.emptyTo(s[Indexes.SONG_ID], ""),
-                                    GDUtils.emptyTo(s[Indexes.SONG_TITLE], "-"),
-                                    true,
-                                    GDUtils.emptyTo(s[Indexes.SONG_SIZE], "??MB"),
-                                    GDUtils.emptyTo(s[Indexes.SONG_URL], ""),
-                                    GDUtils.emptyTo(s[Indexes.SONG_SECRET_URL], "")
-                                );
-                            }).bind(this)(),
+                        lv[Indexes.LEVEL_SONG_ID] == "0" ? GDSong.basicSongs[lv[Indexes.LEVEL_AUDIO_TRACK]] : GDSong.empty(),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_GAME_VERSION], ""),
                         GDUtils.emptyTo(lv[Indexes.LEVEL_LIKES], ""),
                         GDLength.getAbsoluteLength(Number(lv[Indexes.LEVEL_LENGTH])),

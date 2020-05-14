@@ -20,6 +20,10 @@ exports.GDSong = function GDSong(){
         this.secretLink = !secretLink ? "" : secretLink;
     }
 
+    GDSong.empty = function(){
+        return new GDSong("", "", "", true, "", "", "");
+    }
+
     GDSong.basicSongs = {
         "0": new GDSong("ForeverBound", 0, "Stereo Madness", false),
         "1": new GDSong("DJVI", 1, "Back On Track", false),
