@@ -10,3 +10,6 @@ credential
 
 #log file
 global_modules/plugins/log/logs/*
+
+#test file
+#global_modules/plugins/gd/test/*
