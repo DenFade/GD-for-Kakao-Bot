@@ -1,24 +1,24 @@
 //connect
-var Connect = require("../../request/Request").Connection();
+var Connect = require("../../../request/Request").Connection();
 
 //entities
-var GDDifficulty = require("../entities/GDDifficulty");
-var GDLength = require("../entities/GDLength");
-var GDLevel = require("../entities/GDLevel").GDLevel();
-var GDSong = require("../entities/GDSong").GDSong();
-var Indexes = require("../entities/Index");
+var GDDifficulty = require("../../entities/GDDifficulty");
+var GDLength = require("../../entities/GDLength");
+var GDLevel = require("../../entities/GDLevel").GDLevel();
+var GDSong = require("../../entities/GDSong").GDSong();
+var Indexes = require("../../entities/Index");
 
 //error
-var GDError = require("../error/GDError").GDError;
+var GDError = require("../../error/GDError").GDError;
 
 //logger
-var Logger = require("../../log/Logger").Logger;
-var dir = require("../../log/logs/setting").dir;
+var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../utils/Base64");
-var GDUtils = require("../utils/GDUtils");
-var GDCrypto = require("../utils/GDCrypto");
+var Base64 = require("../../utils/Base64");
+var GDUtils = require("../../utils/GDUtils");
+var GDCrypto = require("../../utils/GDCrypto");
 
 
 function getlevel(r, id){

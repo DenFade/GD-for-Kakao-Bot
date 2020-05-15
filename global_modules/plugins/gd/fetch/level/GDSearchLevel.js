@@ -1,28 +1,28 @@
 //connect
-var Connect = require("../../request/Request").Connection();
+var Connect = require("../../../request/Request").Connection();
 
 //entities
-var GDDifficulty = require("../entities/GDDifficulty");
-var GDLength = require("../entities/GDLength");
-var GDLevel = require("../entities/GDLevel").GDLevel();
-var GDSearchField = require("../entities/GDSearchField");
-var GDSong = require("../entities/GDSong").GDSong();
-var Indexes = require("../entities/Index");
+var GDDifficulty = require("../../entities/GDDifficulty");
+var GDLength = require("../../entities/GDLength");
+var GDLevel = require("../../entities/GDLevel").GDLevel();
+var GDSearchField = require("../../entities/GDSearchField");
+var GDSong = require("../../entities/GDSong").GDSong();
+var Indexes = require("../../entities/Index");
 
 //error
-var GDError = require("../error/GDError").GDError;
+var GDError = require("../../error/GDError").GDError;
 
 //fetch
 var getlevel = require("./GDGetLevel").getlevel;
 
 //logger
-var Logger = require("../../log/Logger").Logger;
-var dir = require("../../log/logs/setting").dir;
+var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../utils/Base64");
-var GDUtils = require("../utils/GDUtils");
-var Paginator = require("../utils/Paginator").Paginator();
+var Base64 = require("../../utils/Base64");
+var GDUtils = require("../../utils/GDUtils");
+var Paginator = require("../../utils/Paginator").Paginator();
 
 function searchlevel(r, name, page, filter, field){
 

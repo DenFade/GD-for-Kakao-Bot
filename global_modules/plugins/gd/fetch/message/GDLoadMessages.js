@@ -1,24 +1,24 @@
 //connect
-var Connect = require("../../request/Request").Connection();
+var Connect = require("../../../request/Request").Connection();
 
 //entities
-var GDMessage = require("../entities/GDMessage").GDMessage();
-var Indexes = require("../entities/Index");
+var GDMessage = require("../../entities/GDMessage").GDMessage();
+var Indexes = require("../../entities/Index");
 
 //error
-var GDError = require("../error/gderror").GDError;
+var GDError = require("../../error/gderror").GDError;
 
 //fetch
 var getMessage = require("./GDGetMessage").getmessage;
 
 //logger
-var Logger = require("../../log/Logger").Logger;
-var dir = require("../../log/logs/setting").dir;
+var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../utils/Base64");
-var GDUtils = require("../utils/GDUtils");
-var Paginator = require("../utils/Paginator").Paginator();
+var Base64 = require("../../utils/Base64");
+var GDUtils = require("../../utils/GDUtils");
+var Paginator = require("../../utils/Paginator").Paginator();
 
 function loadmessages(r, page){
     

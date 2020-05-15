@@ -1,25 +1,25 @@
 //connect
-var Connect = require("../../request/Request").Connection();
+var Connect = require("../../../request/Request").Connection();
 
 //entities
-var GDGauntlet = require("../entities/GDGauntlet").GDGauntlet();
-var GDLevelPackage = require("../entities/GDLevelPackage").GDLevelPackage();
-var Indexes = require("../entities/Index");
+var GDGauntlet = require("../../entities/GDGauntlet").GDGauntlet();
+var GDLevelPackage = require("../../entities/GDLevelPackage").GDLevelPackage();
+var Indexes = require("../../entities/Index");
 
 //error
-var GDError = require("../error/GDError").GDError;
+var GDError = require("../../error/GDError").GDError;
 
 //fetch
-var getLevel = require("../fetch/GDGetLevel").getlevel;
+var getLevel = require("../level/GDGetLevel").getlevel;
 
 //logger
-var Logger = require("../../log/Logger").Logger;
-var dir = require("../../log/logs/setting").dir;
+var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
-var Base64 = require("../utils/Base64");
-var GDUtils = require("../utils/GDUtils");
-var GDCrypto = require("../utils/GDCrypto");
+var Base64 = require("../../utils/Base64");
+var GDUtils = require("../../utils/GDUtils");
+var GDCrypto = require("../../utils/GDCrypto");
 
 function getgauntlet(r){
 

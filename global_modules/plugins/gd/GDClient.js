@@ -5,24 +5,24 @@ var Indexes = require("./entities/Index");
 var GDError = require("./error/GDError").GDError;
 
 //fetch - level
-var searchLevel = require("./fetch/GDSearchLevel").searchlevel;
-var getLevel = require("./fetch/GDGetLevel").getlevel;
+var searchLevel = require("./fetch/level/GDSearchLevel").searchlevel;
+var getLevel = require("./fetch/level/GDGetLevel").getlevel;
+var likeLevel = require("./fetch/level/GDLikeLevel").likelevel;
 
 
 //fetch - user
-var getUser = require("./fetch/GDGetUser").getuser;
+var getUser = require("./fetch/user/GDGetUser").getuser;
 
 //fetch - account message
-var loadMessages = require("./fetch/GDLoadMessages").loadmessages;
-var getMessage = require("./fetch/GDGetMessage").getmessage;
+var loadMessages = require("./fetch/message/GDLoadMessages").loadmessages;
+var getMessage = require("./fetch/message/GDGetMessage").getmessage;
 
 //fetch - rate
-var likeLevel = require("./fetch/GDLikeLevel").likelevel;
-var rateStars = require("./fetch/GDRateStarsLevel").ratestars;
-var rateDemon = require("./fetch/GDRateDemonLevel").ratedemon;
+var rateStars = require("./fetch/rate/GDRateStarsLevel").ratestars;
+var rateDemon = require("./fetch/rate/GDRateDemonLevel").ratedemon;
 
-//fetch - gauntlet
-var getGauntlet = require("./fetch/GDGetGauntlet").getgauntlet;
+//fetch - package
+var getGauntlet = require("./fetch/package/GDGetGauntlet").getgauntlet;
 
 //utils
 var GDUtils = require("./utils/GDUtils");

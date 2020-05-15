@@ -1,19 +1,19 @@
 //connect
-var Connect = require("../../request/Request").Connection();
+var Connect = require("../../../request/Request").Connection();
 
 //entities
-var Indexes = require("../entities/Index");
+var Indexes = require("../../entities/Index");
 
 //error
-var GDError = require("../error/gderror").GDError;
+var GDError = require("../../error/gderror").GDError;
 
 //logger
-var Logger = require("../../log/Logger").Logger;
-var dir = require("../../log/logs/setting").dir;
+var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
-var GDUtils = require("../utils/GDUtils");
-var GDCrypto = require("../utils/GDCrypto");
+var GDUtils = require("../../utils/GDUtils");
+var GDCrypto = require("../../utils/GDCrypto");
 
 function getmessage(r, id){
 
