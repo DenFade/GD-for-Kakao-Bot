@@ -16,17 +16,19 @@ var GDUtils = require("../../utils/GDUtils");
 var Base64 = require("../../utils/Base64");
 var GDCrypto = require("../../utils/GDCrypto");
 
-function send_message(r, id, title, index) {
+function sendmessage(r, id, title, content) {
+    
     if(id == undefined) throw new GDError("Target ID is not vaild.");
     if(!r.authenticated) throw new GDError("Need Login")
 
-    let body = {
+    var body = {
         accountID : r.accountID,
         gjp : r.pass,
         toAccountID : id,
         subject : Base64.encode(title),
-        body : GDCrypto.encodeMsgBody(index)
-    }
+        body : GDCrypto.encodeMsgBody(content)
+    };
+
     return Connect.POST(GDUtils.URL(Indexes.URL_SEND_PRIVATE_MESSAGE), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
     (res, err) => {
         let logger = Logger.build(dir, "gdlogs");
@@ -44,4 +46,4 @@ function send_message(r, id, title, index) {
     })
 }
 
-exports.sendMessage = send_message;
+exports.sendMessage = sendmessage;

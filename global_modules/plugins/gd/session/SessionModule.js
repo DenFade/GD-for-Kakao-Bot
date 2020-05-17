@@ -24,12 +24,12 @@ let blockUser = require("../fetch/user/GDBlockUser").block_user;
 let unblockUser = require("../fetch/user/GDUnblockUser").unblock_user;
 
 
-const session = function(client) {
-    session.prototype.account = {
+const SessionModule = function(client) {
+    SessionModule.prototype.account = {
 
     }
 
-    session.prototype.comment = {
+    SessionModule.prototype.comment = {
         account_comments: function(account_id, page) {
             return accountcomments(client, account_id, page)
         },
@@ -47,7 +47,7 @@ const session = function(client) {
         }
     }
 
-    session.prototype.level = {
+    SessionModule.prototype.level = {
         get_information: function(level_id) {
             return getLevel(client, level_id);
         },
@@ -64,7 +64,7 @@ const session = function(client) {
         }
     }
 
-    session.prototype.message = {
+    SessionModule.prototype.message = {
         get_message: function(message_id) {
             return getMessage(client, message_id);
         },
@@ -82,13 +82,13 @@ const session = function(client) {
         }
     }
 
-    session.prototype.package = {
+    SessionModule.prototype.package = {
         get_gauntlet: function() {
             return getGauntlet(client);
         }
     }
 
-    session.prototype.rate = {
+    SessionModule.prototype.rate = {
         rate_demon: function(level_id, demon) {
             return rateDemonLevel(client, level_id, demon);
         },
@@ -98,7 +98,7 @@ const session = function(client) {
         }
     }
 
-    session.prototype.request = {
+    SessionModule.prototype.request = {
         accpet_friend: function() {
             return "Method not implemented."
         },
@@ -112,7 +112,7 @@ const session = function(client) {
         }
     }
 
-    session.prototype.user = {
+    SessionModule.prototype.user = {
         block_user: function(target_id) {
             return blockUser(client, target_id);
         },
@@ -135,4 +135,4 @@ const session = function(client) {
     }
 }
 
-module.exports = session
+module.exports = SessionModule;

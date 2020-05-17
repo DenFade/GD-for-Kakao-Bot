@@ -134,7 +134,7 @@ function searchlevel(r, name, page, filter, field){
                     }
 
                     return new Paginator(levels, !page ? 0 : page, Number(pages[2]), Number(pages[0]),
-                        newPage => new searchlevel(r, name, newPage, filter, field)
+                        newPage => searchlevel(r, name, newPage, filter, field)
                     );
                 }
             });

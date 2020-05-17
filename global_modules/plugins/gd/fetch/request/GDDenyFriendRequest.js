@@ -14,21 +14,23 @@ var dir = require("../../../log/logs/setting").dir;
 //utils
 var GDUtils = require("../../utils/GDUtils");
 
-function blockuser(r, id) {
+function denyfriend(r, accid, reqid) {
 
-    if(id === undefined) throw new GDError("Empty Account ID");
+    if(accid === undefined) throw new GDError("Empty Account ID");
+    if(reqid === undefined) throw new GDError("Empty Request ID");
 
     var body = {
         accountID : r.accountID,
         gjp : r.pass,
-        targetAccountID : id
+        targetAccountID : accid,
+        requestID: reqid
     };
 
-    return Connect.POST(GDUtils.URL(Indexes.URL_BLOCK_USER), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 
+    return Connect.POST(GDUtils.URL(Indexes.URL_DELETE_REQUEST), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 
             (res, err) => {
-                let logger = Logger.build(dir, "gdlogs");
+                var logger = Logger.build(dir, "gdlogs");
                 if(err !== null){
-                    logger.write(Logger.ERROR, "An error has occured -> from 'GDBlockUser.js'", err);
+                    logger.write(Logger.ERROR, "An error has occured -> from 'GDDenyFriendRequest.js'", err);
                     return null;
                 } else if(res == "-1"){
                     logger.write(Logger.ERROR, "Received Code -1");
@@ -42,4 +44,4 @@ function blockuser(r, id) {
     );
 }
 
-exports.blockuser = blockuser;
+exports.denyfriend = denyfriend;
