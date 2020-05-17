@@ -4,29 +4,10 @@ var Indexes = require("./entities/Index");
 //error
 var GDError = require("./error/GDError").GDError;
 
-//fetch - level
-var searchLevel = require("./fetch/level/GDSearchLevel").searchlevel;
-var getLevel = require("./fetch/level/GDGetLevel").getlevel;
-var likeLevel = require("./fetch/level/GDLikeLevel").likelevel;
-
-
-//fetch - user
-var getUser = require("./fetch/user/GDGetUser").getuser;
-
-//fetch - account message
-var loadMessages = require("./fetch/message/GDLoadMessages").loadmessages;
-var getMessage = require("./fetch/message/GDGetMessage").getmessage;
-
-//fetch - rate
-var rateStars = require("./fetch/rate/GDRateStarsLevel").ratestars;
-var rateDemon = require("./fetch/rate/GDRateDemonLevel").ratedemon;
-
-//fetch - package
-var getGauntlet = require("./fetch/package/GDGetGauntlet").getgauntlet;
-
 //utils
 var GDUtils = require("./utils/GDUtils");
 var GDCrypto = require("./utils/GDCrypto");
+var SessionModule = require("./session/SessionModule");
 
 function GDClient(){
     this.gdw = 0;
@@ -34,12 +15,12 @@ function GDClient(){
     this.binaryVersion = 35;
     this.secret = "Wmfd2893gb7";
     this.timeout = 8000;
+    this.session = new SessionModule(this);
 }
 
 GDClient.build = function(){
     return new GDClient();
 }
-
 //var client = GDClient.build()
 //                     .setTimeout(10000)
 //                     .toggleLoggingRawData(true)
@@ -66,7 +47,7 @@ GDClient.prototype.login = function(accid, pass){
 
     if(!accid || !pass) throw new GDError("AccountID and password must not be empty");
 
-    var udata = getUser(this, accid).block();
+    var udata = this.session.user.get_information(accid).block();
 
     this.accountID = accid;
     this.pass = GDCrypto.encodeAccPass(pass);
@@ -90,8 +71,7 @@ GDClient.prototype.searchLevel = function(name, page, filter, field){
     @return {Connection (Paginator)} - Paginator 객체
     */
 
-    return searchLevel(this, name, page, filter, field);
-
+    return this.session.level.search_level(name, page, filter, field);
 }
 
 GDClient.prototype.getLevel = function(id){
@@ -102,7 +82,7 @@ GDClient.prototype.getLevel = function(id){
     @return {Connection (GDLevel)} - GDLevel객체
     */
 
-    return getLevel(this, id);
+    return this.session.level.get_information(id);
 }
 
 GDClient.prototype.getUser = function(id){
@@ -113,7 +93,7 @@ GDClient.prototype.getUser = function(id){
     @return {Connection (GDUser)} - GDUser객체
     */
 
-    return getUser(this, id);
+    return this.session.user.get_information(id);
 }
 
 GDClient.prototype.loadMessages = function(page){
@@ -124,7 +104,7 @@ GDClient.prototype.loadMessages = function(page){
     @return {Connection (Paginator)} - Paginator객체
     */
 
-    return loadMessages(this, page);
+    return this.session.message.load_messages(page);
 }
 
 GDClient.prototype.getMessage = function(id){
@@ -135,7 +115,7 @@ GDClient.prototype.getMessage = function(id){
     @return {Connection (String)} - 메시지 내용
     */
 
-    return getMessage(this, id);
+    return this.session.message.get_message(id);
 }
 
 GDClient.prototype.likeLevel = function(id, like, udid){
@@ -148,7 +128,7 @@ GDClient.prototype.likeLevel = function(id, like, udid){
     @return {Connection (String)} - SUCCESS 또는 ERROR
     */
 
-    return likeLevel(this, id, like, udid);
+    return this.session.level.request_like(id, like, udid);
 }
 
 GDClient.prototype.rateStars = function(id, star, udid){
@@ -161,7 +141,7 @@ GDClient.prototype.rateStars = function(id, star, udid){
     @return {Connection (String)} - SUCCESS 또는 ERROR
     */
 
-    return rateStars(this, id, star, udid);
+    return this.session.rate.rate_stars(id, star, udid);
 }
 
 GDClient.prototype.rateDemon = function(id, demon){
@@ -173,7 +153,7 @@ GDClient.prototype.rateDemon = function(id, demon){
     @return {Connection (String)} - SUCCESS 또는 ERROR
     */
 
-    return rateDemon(this, id, demon);
+    return this.session.rate.rate_demon(id, demon);
 }
 
 GDClient.prototype.getGauntlet = function(){
@@ -182,7 +162,7 @@ GDClient.prototype.getGauntlet = function(){
     @return {Connection (GDGauntlet)} - 건틀렛 정보
     */
 
-    return getGauntlet(this);
+    return this.session.package.get_gauntlet();
 }
 
 exports.GDClient = GDClient;

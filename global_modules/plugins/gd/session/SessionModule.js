@@ -20,8 +20,9 @@ let rateStarLevel = require("../fetch/rate/GDRateStarsLevel").ratestars;
 
 //user
 let getUser = require("../fetch/user/GDGetUser").getUser;
+let blockUser = require("../fetch/user/GDBlockUser").block_user;
+let unblockUser = require("../fetch/user/GDUnblockUser").unblock_user;
 
-//let session = new session(cleint)
 
 const session = function(client) {
     session.prototype.account = {
@@ -92,7 +93,7 @@ const session = function(client) {
             return rateDemonLevel(client, level_id, demon);
         },
 
-        rate_star: function(level_id, star, device_udid) {
+        rate_stars: function(level_id, star, device_udid) {
             return rateStarLevel(client, level_id, star, device_udid);
         }
     }
@@ -112,8 +113,8 @@ const session = function(client) {
     }
 
     session.prototype.user = {
-        block_user: function() {
-            return "Method not implemented."
+        block_user: function(target_id) {
+            return blockUser(client, target_id);
         },
 
         get_information: function(user_id) {
@@ -124,12 +125,12 @@ const session = function(client) {
             return "Method not implemented."
         },
 
-        top_ranking: function() {
+        ranking: function(type, count) {
             return "Method not implemented."
         },
 
-        unblock_user: function() {
-            return "Method not implemented."
+        unblock_user: function(target_id) {
+            return unblockUser(client, target_id);
         }
     }
 }
