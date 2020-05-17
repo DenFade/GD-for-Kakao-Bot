@@ -9,6 +9,7 @@ var Indexes = require("../../entities/Index");
 
 //logger
 var Logger = require("../../../log/Logger").Logger;
+var dir = require("../../../log/logs/setting").dir;
 
 //utils
 var GDUtils = require("../../utils/GDUtils");
