@@ -45,10 +45,12 @@ function searchlevel(r, name, page, filter, field){
         star: GDUtils.emptyTo(filter.star, 0)
     }
 
+    if(filter.diff == "-2" && filter.demonFilter !== "") body.demonFilter = filter.demonFilter;
+
     if(filter.noStar) body.noStar = 1;
     if(filter.song !== undefined){
         body.song = filter.song;
-        body.customSong = filter.isCustom ? "1" : "0";
+        if(filter.isCustomSong) body.isCustom = "1"; 
     }
     if((body.onlyCompleted || body.uncompleted) && filter.completedList) body.completedLevels = "(" + filter.completedList.join() + ")";
     if(filter.followed) body.followed = filter.followed.join();

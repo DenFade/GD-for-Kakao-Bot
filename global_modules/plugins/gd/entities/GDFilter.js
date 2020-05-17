@@ -1,7 +1,7 @@
 exports.GDFilter = function GDFilter(){
     function GDFilter(){
-        this.diff = [];
-        this.len = [];
+        this.diff = "";
+        this.len = "";
         this.demonFilter = "";
 
     }
@@ -28,6 +28,24 @@ exports.GDFilter = function GDFilter(){
 
     GDFilter.prototype.setDifficulty = function(diff){
         var diffs = Array.from(arguments);
-        if(diffs.length )
+        if(diffs.length > 1){
+            if(diffs.some(v => v.startsWith("-"))) throw new TypeError("Multi-difficulty is only available with EASY ~ INSANE");
+            else this.diff = diffs.join();
+        } else {
+            if(diffs[0] == GDFilter.AUTO) this.diff = GDFilter.AUTO;
+            else if(diffs[0] == GDFilter.NA) this.diff = GDFilter.NA;
+            else {
+                var splitted = diffs[0].split("/");
+                this.diff = splitted[0];
+                this.demonFilter = splitted[1];
+            }
+        }
+
+        return this;
+    }
+
+    GDFilter.prototype.setLength = function(len){
+        this.len = Array.from(arguments).join();
+        return this;
     }
 }
