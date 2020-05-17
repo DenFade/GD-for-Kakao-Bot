@@ -22,7 +22,7 @@ function block_user(r, id) {
         gjp : r.pass,
         targetAccountID : id
     }
-    return Connect.POST(GDUtils.URL(Indexs.URL_BLOCK_USER), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 
+    return Connect.POST(GDUtils.URL(Indexes.URL_BLOCK_USER), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 
     (res, err) => {
         let logger = Logger.build(dir, "gdlogs");
         if(err !== null){
