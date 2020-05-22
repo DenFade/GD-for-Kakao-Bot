@@ -14,7 +14,7 @@ exports.GDRequest = function GDRequest(){
 
         this.requestSenderName = senderName;
         this.requestSenderId = senderId;
-        this.requestSenderAccid = senderAccid;
+        this.requestSenderAccId = senderAccid;
         this.requsetId = id;
         this.requestBody = body;
         this.requestTS = ts;
