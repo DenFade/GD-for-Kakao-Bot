@@ -14,16 +14,16 @@ var dir = require("../../../log/logs/setting").dir;
 //utils
 var GDUtils = require("../../utils/GDUtils");
 
-function acceptfriend(r, accid, reqid) {
+function acceptfriend(r, accountID, requestID) {
 
-    if(accid === undefined) throw new GDError("Empty Account ID");
-    if(reqid === undefined) throw new GDError("Empty Request ID");
+    if(accountID === undefined) throw new GDError("Empty Account ID");
+    if(requestID === undefined) throw new GDError("Empty Request ID");
 
     var body = {
         accountID : r.accountID,
         gjp : r.pass,
-        targetAccountID : accid,
-        requestID: reqid
+        targetAccountID : accountID,
+        requestID: requestID
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_ACCEPT_REQUEST), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 

@@ -14,14 +14,14 @@ var dir = require("../../../log/logs/setting").dir;
 //utils
 var GDUtils = require("../../utils/GDUtils");
 
-function blockuser(r, id) {
+function blockuser(r, accountID) {
 
-    if(id === undefined) throw new GDError("Empty Account ID");
+    if(accountID === undefined) throw new GDError("Empty Account ID");
 
     var body = {
         accountID : r.accountID,
         gjp : r.pass,
-        targetAccountID : id
+        targetAccountID : accountID
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_BLOCK_USER), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 

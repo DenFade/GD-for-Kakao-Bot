@@ -14,13 +14,13 @@ var dir = require("../../../log/logs/setting").dir;
 //utils
 var GDUtils = require("../../utils/GDUtils");
 
-function unblockuser(r, id) {
-    if(id === undefined) throw new GDError("Empty Account ID");
+function unblockuser(r, accountID) {
+    if(accountID === undefined) throw new GDError("Empty Account ID");
 
     var body = {
         accountID : r.accountID,
         gjp : r.pass,
-        targetAccountID : id
+        targetAccountID : accountID
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_UNBLOCK_USER), {}, GDUtils.bodyParser(r, body), r.timeout, true, true, 

@@ -23,7 +23,7 @@ var GDCrypto = require("../../utils/GDCrypto");
 
 function getlevel(r, id){
 
-    if(id == undefined) throw new GDError("Empty level id");
+    if(id == undefined) throw new GDError("Empty Level ID");
 
     var body = {
         levelID: id

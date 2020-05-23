@@ -17,7 +17,7 @@ var GDCrypto = require("../../utils/GDCrypto");
 
 function getmessage(r, id){
 
-    if(id == undefined) throw new GDError("Empty message id");
+    if(id == undefined) throw new GDError("Empty Message ID");
 
     if(!r.authenticated) throw new GDError("Need Login")
 

@@ -17,12 +17,12 @@ var dir = require("../../../log/logs/setting").dir;
 //utils
 var GDUtils = require("../../utils/GDUtils");
 
-function getuser(r, id){
+function getuser(r, accountID){
 
-    if(id === undefined) throw new GDError("Empty user id");
+    if(id === undefined) throw new GDError("Empty Account ID");
 
     var body = {
-        targetAccountID: id
+        targetAccountID: accountID
     };
 
     return Connect.POST(GDUtils.URL(Indexes.URL_GET_USER_INFO), {}, GDUtils.bodyParser(r, body), r.timeout, {}, true, true,
