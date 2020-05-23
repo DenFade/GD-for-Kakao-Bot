@@ -6,7 +6,7 @@ RhinoJs Geometry Dash Module
 ```javascript
 - ** GDClient **
 
-- GDClient.getMessage(@Number id) { Connection (Number) }
+- GDClient.getMessage(@Number id) { Connection (String) }
 -
 - GDClient.loadMessages(@Number page) { Connection (Paginator) }
 -
