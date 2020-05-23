@@ -15,6 +15,7 @@ var GDCrypto = {
     userscore: '85271',
 
     secrets: {
+        DEFAULT: "Wmfd2893gb7",
         RATE_DEMON: "Wmfp3879gc3"
     },
 
