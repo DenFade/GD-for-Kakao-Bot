@@ -8,3 +8,4 @@ RhinoJs Geometry Dash Module
 
 - GDClient.accountComments(@Number accountID, @Number page){ Connection (Paginator) }
 -
+```
