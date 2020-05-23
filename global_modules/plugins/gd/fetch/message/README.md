@@ -10,7 +10,7 @@ RhinoJs Geometry Dash Module
 -
 - GDClient.loadMessages(@Number page) { Connection (Paginator) }
 -
-- GDClient.removeMessage(@number id) { Connection(String) }
+- GDClient.removeMessage(@Number id) { Connection(String) }
 -
-- GDClinet.sendMessage(@Number id, @String title, @추가바람 content) { Connection(String) }
+- GDClinet.sendMessage(@Number id, @String title, @String content) { Connection(String) }
 ```
