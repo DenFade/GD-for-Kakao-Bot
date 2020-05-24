@@ -9,5 +9,4 @@ RhinoJS Geometry Dash Module
 - GDClient.rateDemon(@Number id, @Number demon){ Connection(String) }
 -
 - GDClient.rateStars(@Number id, @Number star, @추가바람 customUdid) { Connection(String) }
--
 ```
