@@ -1,4 +1,4 @@
-## Geometry Dash Modules - _Friend Guide_
+## Geometry Dash Modules - _Rate Guide_
 RhinoJS Geometry Dash Module
 > **Note**: This module can be run on [Rhino](https://developer.mozilla.org/ko/docs/Rhino) and is unstable as it is a beta version.
 
@@ -8,5 +8,5 @@ RhinoJS Geometry Dash Module
 
 - GDClient.rateDemon(@Number id, @Number demon){ Connection(String) }
 -
-- GDClient.rateStars(@Number id, @Number star, @추가바람 customUdid) { Connection(String) }
+- GDClient.rateStars(@Number id, @Number star, @String customUdid) { Connection(String) }
 ```
