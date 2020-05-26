@@ -1,4 +1,4 @@
-## Geometry Dash Modules - _Friend Guide_
+## Geometry Dash Modules - _Request Guide_
 RhinoJS Geometry Dash Module
 > **Note**: This module can be run on [Rhino](https://developer.mozilla.org/ko/docs/Rhino) and is unstable as it is a beta version.
 
