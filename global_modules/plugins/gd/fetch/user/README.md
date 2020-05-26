@@ -1,4 +1,4 @@
-## Geometry Dash Modules - _Friend Guide_
+## Geometry Dash Modules - _User Guide_
 RhinoJS Geometry Dash Module
 > **Note**: This module can be run on [Rhino](https://developer.mozilla.org/ko/docs/Rhino) and is unstable as it is a beta version.
 
@@ -10,9 +10,9 @@ RhinoJS Geometry Dash Module
 -
 - GDClient.getUser(@Number id) { Connection(GDUser) }
 -
-- GDClient.rankingUser(@추가바람 type, @Number Count) { Connection(users) }
+- GDClient.rankingUser(@String type, @Number Count) { Connection(users) }
 -
-- GDClient.
+- GDClient.searchUser(@Number id) { Connection(Paginator) }
 -
 - GDClient.unblockUser(@Number id) { Connection(String) }
 ```
