@@ -94,4 +94,8 @@ function getlevel(r, id){
             });
 }
 
+getlevel.toString = function(){
+    return "[GDClient.getLevel <GDLevel>]";
+}
+
 exports.getlevel = getlevel;

@@ -42,4 +42,8 @@ function blockuser(r, accountID) {
     );
 }
 
+blockuser.toString = function(){
+    return "[GDClient.blockUser <String>]";
+}
+
 exports.blockuser = blockuser;

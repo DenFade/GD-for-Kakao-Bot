@@ -75,4 +75,8 @@ function loadmessages(r, page){
     )
 }
 
+loadmessages.toString = function(){
+    return "[GDClient.loadMessages <Paginator <GDMessage>>]";
+}
+
 exports.loadmessages = loadmessages;

@@ -44,4 +44,8 @@ function denyfriend(r, accountID, requestID) {
     );
 }
 
+denyfriend.toString = function(){
+    return "[GDClient.denyFriend <String>]";
+}
+
 exports.denyfriend = denyfriend;

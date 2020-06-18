@@ -57,4 +57,8 @@ function getgauntlet(r){
     );
 }
 
+getgauntlet.toString = function(){
+    return "[GDClient.getGauntlet <GDGauntlet>]";
+}
+
 exports.getgauntlet = getgauntlet;

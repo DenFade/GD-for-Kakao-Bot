@@ -67,7 +67,11 @@ function accountcomments(r, accountID, page){
                     );
                 }
             }
-    )
+    );
+}
+
+accountcomments.toString = function(){
+    return "[GDClient.accountComments <Paginator <GDComment>>]";
 }
 
 exports.accountcomments = accountcomments;

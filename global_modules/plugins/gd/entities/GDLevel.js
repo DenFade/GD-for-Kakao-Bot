@@ -76,7 +76,7 @@ exports.GDLevel = function GDLevel(){
 
     GDLevel.prototype.toString = function(){
         let p = Object.keys(this);
-        return "    ---Level Data---" + "\n\n" + p.map(v => v + " : " + this[v]).join("\n");
+        return "    ---Level Data---" + "\n\n" + p.map(v => v + " : " + (v !== "levelData" ? this[v] : this[v].length+" chars")).join("\n");
     }
 
     return GDLevel;

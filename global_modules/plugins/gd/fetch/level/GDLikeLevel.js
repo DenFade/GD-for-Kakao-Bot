@@ -61,4 +61,8 @@ function likelevel(r, id, like, customUdid){
     );
 }
 
+likelevel.toString = function(){
+    return "[GDClient.likeLevel <String>]";
+}
+
 exports.likelevel = likelevel;

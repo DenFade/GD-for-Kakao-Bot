@@ -86,4 +86,8 @@ function rankinguser(r, type, count){
     );
 }
 
+rankinguser.toString = function(){
+    return "[GDClient.rankingUser <Array <GDUser>>]";
+}
+
 exports.rankinguser = rankinguser;

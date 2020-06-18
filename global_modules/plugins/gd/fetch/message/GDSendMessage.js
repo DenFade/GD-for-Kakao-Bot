@@ -47,4 +47,8 @@ function sendmessage(r, accountID, title, content) {
     );
 }
 
+sendmessage.toString = function(){
+    return "[GDClient.sendMessage <String>]";
+}
+
 exports.sendMessage = sendmessage;

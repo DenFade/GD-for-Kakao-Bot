@@ -42,4 +42,8 @@ function removemessage(r, id){
     );
 }
 
+removemessage.toString = function(){
+    return "[GDClient.removeMessage <String>]";
+}
+
 exports.removemessage = removemessage;

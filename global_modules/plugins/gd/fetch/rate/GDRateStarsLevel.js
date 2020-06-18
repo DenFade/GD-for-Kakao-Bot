@@ -56,4 +56,8 @@ function ratestars(r, id, star, customUdid){
     );
 }
 
+ratestars.toString = function(){
+    return "[GDClient.rateStars <String>]";
+}
+
 exports.ratestars = ratestars;

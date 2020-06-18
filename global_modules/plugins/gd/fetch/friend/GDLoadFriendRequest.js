@@ -66,4 +66,8 @@ function loadfriends(r, page, isSent){
     );
 }
 
+loadfriends.toString = function(){
+    return "[GDClient.loadFriendRequests <Paginator <GDRequest>>]";
+}
+
 exports.loadfriends = loadfriends;

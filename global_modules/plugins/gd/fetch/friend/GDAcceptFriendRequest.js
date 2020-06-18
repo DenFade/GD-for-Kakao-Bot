@@ -44,4 +44,8 @@ function acceptfriend(r, accountID, requestID) {
     );
 }
 
+acceptfriend.toString = function(){
+    return "[GDClient.acceptFriend <String>]";
+}
+
 exports.acceptfriend = acceptfriend;

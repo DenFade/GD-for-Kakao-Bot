@@ -41,4 +41,8 @@ function unblockuser(r, accountID) {
     );
 }
 
+unblockuser.toString = function(){
+    return "[GDClient.unblockUser <String>]";
+}
+
 exports.unblockuser = unblockuser;

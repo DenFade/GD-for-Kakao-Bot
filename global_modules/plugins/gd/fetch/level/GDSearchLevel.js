@@ -140,4 +140,8 @@ function searchlevel(r, name, page, filter, field){
             });
 }
 
+searchlevel.toString = function(){
+    return "[GDClient.searchLevel <Paginator <GDLevel>>]";
+}
+
 exports.searchlevel = searchlevel;

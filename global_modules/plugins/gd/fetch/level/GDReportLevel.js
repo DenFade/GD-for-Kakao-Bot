@@ -37,4 +37,8 @@ function reportlevel(r, id){
     );
 }
 
+reportlevel.toString = function(){
+    return "[GDClient.reportLevel <String>]";
+}
+
 exports.reportlevel = reportlevel;

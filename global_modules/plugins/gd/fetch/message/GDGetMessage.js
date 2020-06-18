@@ -46,4 +46,8 @@ function getmessage(r, id){
     );
 }
 
+getmessage.toString = function(){
+    return "[GDClient.getMessage <String>]";
+}
+
 exports.getmessage = getmessage;

@@ -47,4 +47,8 @@ function ratedemon(r, id, demon){
     );
 }
 
+ratedemon.toString = function(){
+    return "[GDClient.rateDemon <String>]";
+}
+
 exports.ratedemon = ratedemon;

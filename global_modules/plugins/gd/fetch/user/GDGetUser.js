@@ -77,4 +77,8 @@ function getuser(r, accountID){
     );
 }
 
+getuser.toString = function(){
+    return "[GDClient.getUser <GDUser>]";
+}
+
 exports.getuser = getuser;
