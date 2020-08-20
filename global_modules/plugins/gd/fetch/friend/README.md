@@ -10,7 +10,7 @@ RhinoJS Geometry Dash Module
 -
 - GDClient.denyFriendRequest(@Number accid, @Number reqid) { Connection (String) }
 -
-- GDClient.loadFriendRequest(@Number page, @Boolean) { Connection (String) }
+- GDClient.loadFriendRequest(@Number page, @Boolean isSent) { Connection (String) }
 ```
 
 ### Example
